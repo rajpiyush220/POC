@@ -1,0 +1,26 @@
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: kafka-confluent
+
+# Kafka Configuration
+kafka:
+  topicName: SampleTopic_0
+  baseUrl: pkc-lzvrd.us-west4.gcp.confluent.cloud:9092
+  defaultConfig:
+    partitionSize: 10
+    replicationFactor: 3
+  securityConfig:
+    protocol: SASL_SSL
+    apiKey: changeit
+    secretKey: changeit
+    sasl:
+      mechanism: PLAIN
+      jaas:
+        config: org.apache.kafka.common.security.plain.PlainLoginModule required username='${kafka.securityConfig.apiKey}' password='${kafka.securityConfig.secretKey}';
+  session:
+    timeout:
+      ms: 45000
