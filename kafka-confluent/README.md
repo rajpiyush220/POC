@@ -8,7 +8,7 @@ For further reference, please consider the following sections:
     * Spring batch
     * h2 db (Spring req any db to store job description)
     * Spring -kafka
-    * Confluent cloud(https://confluent.cloud/) to host kakfa related infra hosting
+    * [Confluent cloud](https://confluent.cloud/) to host kakfa related infra hosting
 
 #### Project Info
     * It's a sample project which create a topic with specified parition and replicationFactor.
