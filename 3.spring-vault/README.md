@@ -58,7 +58,7 @@ For further reference, please consider the following sections:
           host: localhost
           # host should be same as host set as VAULT_ADDR key
           port: 8200
-          # host should be same as host set as VAULT_ADDR port
+          # host should be same as port set as VAULT_ADDR key
           scheme: http
         kv:
          enabled: true
