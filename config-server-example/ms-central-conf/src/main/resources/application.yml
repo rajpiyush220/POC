@@ -1,0 +1,29 @@
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  application:
+    name: centralconfig
+  config:
+    import: configserver:http://localhost:8071/
+    activate:
+      on-profile: default
+  cloud:
+    config:
+      allow-override: true
+      override-none: true
+      override-system-properties: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${centralConfig.dataSource.username}
+    url: ${centralConfig.dataSource.url}
+    password: ${centralConfig.dataSource.password}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8081

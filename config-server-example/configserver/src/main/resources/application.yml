@@ -1,0 +1,17 @@
+
+  spring:
+    cloud:
+      config:
+        server:
+          git:
+            uri: https://github.com/keepmoving-motivateyourself/config-repo.git
+            clone-on-start: true
+            default-label: develop
+    application:
+      name: configserver
+    profiles:
+      active: git
+  server:
+    port: '8071'
+  encrypt:
+    key: touchblankspot
