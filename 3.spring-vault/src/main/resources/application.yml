@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: spring-vault-sample
+  config:
+    import: vault://
+  cloud:
+    vault:
+      host: localhost
+      port: 8200
+      scheme: http
+      kv:
+        enabled: true
+      token: hvs.rhFwCWNomlCek24Qe57N5uUD
