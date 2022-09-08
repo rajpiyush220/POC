@@ -7,7 +7,7 @@ A spring boot application with both swagger 3.0 api documentation enabled
 ./gradlew sample-ms:bootRun
 ```
 
-## Paths
+## Swagger Paths
 - [All Swagger Resources(groups)](http://localhost:9000/sample-ms/swagger-resources)
 - [All API Docs](http://localhost:9000/sample-ms/v3/api-docs)
 - [Swagger UI endpoint](http://localhost:9000/sample-ms/swagger-ui/index.html)
