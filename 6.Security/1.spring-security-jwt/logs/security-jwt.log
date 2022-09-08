@@ -1,0 +1,5 @@
+2022-09-08 18:12:48,209 INFO org.springframework.boot.StartupInfoLogger [main] Starting SpringSecurityJwtApplication using Java 17.0.2 on Piyush with PID 12724 (F:\Udemy\Microservices\Microservices_part_1\projects\POC\6.Security\1.spring-security-jwt\build\classes\java\main started by mailt in F:\Udemy\Microservices\Microservices_part_1\projects\POC\6.Security\1.spring-security-jwt)
+2022-09-08 18:12:48,211 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.7.3, Spring v5.3.22
+2022-09-08 18:12:48,213 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-09-08 18:12:58,022 DEBUG org.springframework.web.filter.GenericFilterBean [main] Filter 'jwtRequestFilter' configured for use
+2022-09-08 18:13:00,592 INFO org.springframework.boot.StartupInfoLogger [main] Started SpringSecurityJwtApplication in 14.287 seconds (JVM running for 15.587)
