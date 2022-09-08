@@ -1,5 +1,5 @@
 # sample-ms
-A spring boot application with both swagger 3.0 api documentation enabled
+A spring boot application with swagger 3.0 api documentation enabled
 
 ### Guides
 
