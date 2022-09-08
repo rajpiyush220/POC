@@ -1,0 +1,21 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${spring.datasource.db.user:root}
+    url: jdbc:mysql://${spring.datasource.db.host:localhost}:3306/${spring.datasource.default_schema:sample_db}
+    password: ${spring.datasource.db.password:Pikr@1991}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+springdoc:
+  api-docs:
+    path: /api-docs
+jwt:
+  expirationInMs: 86400000
+  secret: Test@!@#$%^&
+  issuer: Sample_JWT_Issuer
+
