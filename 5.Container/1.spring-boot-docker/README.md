@@ -16,7 +16,7 @@
       # Build executable jar
       # Build docker image with tag name touchblankspot/sample-boot-docker (you can change name as per you convenient)
       # Push it docker hub if supplied arguement is true (For this docker should be logged in)
-    # ./build_deploy.sh true/false
+    ./build_deploy.sh true/false
 ```
 - [Access sample endpoint](http://localhost:8080/hello)
 
