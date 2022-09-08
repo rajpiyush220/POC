@@ -21,7 +21,24 @@ spring:
       enabled: 'true'
 
 server:
+  port: 9000
   servlet:
     context-path: /sample-ms
+
+# Actuator management configuration
+management:
+  server:
+    base-path: /sample-ms
+    port: 9001
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+        exclude: threaddump
+
 
 
