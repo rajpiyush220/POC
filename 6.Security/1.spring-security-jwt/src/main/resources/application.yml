@@ -1,5 +1,8 @@
 
 spring:
+  banner:
+    image:
+      location: classpath:banner.txt
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${spring.datasource.db.user:root}
@@ -18,4 +21,6 @@ jwt:
   expirationInMs: 86400000
   secret: Test@!@#$%^&
   issuer: Sample_JWT_Issuer
+server:
+  port: 8081
 
