@@ -13,7 +13,6 @@ import java.util.Set;
 @Data
 @JsonPropertyOrder({"username", "email", "password", "password", "contact_no", "roles"})
 public class ApiUserRequest {
-
     @JsonProperty("username")
     @Size(min = 6, max = 50, message = "Minimum username length: 6 characters")
     @Schema(description = "Unique string")
