@@ -11,5 +11,5 @@
 ```
 - To turn off banner use below properties
 ```properties
-	spring.main.banner-mode=off
+spring.main.banner-mode=off
 ```
