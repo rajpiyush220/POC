@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: inventory-service
+  datasource:
+    username: ${spring.datasource.db.user:root}
+    url: jdbc:mysql://${spring.datasource.db.host:localhost}:3306/${spring.datasource.default_schema:inventory_ms}?createDatabaseIfNotExist=true
+    password: ${spring.datasource.db.password:Pikr@1991}
+  jpa:
+    open-in-view: false
+    show_sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: validate
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    host: smtp-relay.sendinblue.com
+    username: touchblankspot@gmail.com
+    password:
+    port: '587'
+  flyway:
+    baselineOnMigrate: true
+server:
+  port: 0
+encryption:
+  remember_me:
+    key: 3fZVNzasApraF509fhHT
+    token:
+      validity: 3600
+  attribute:
+    key: KdqZ01i0U7WF2J4OQqVjVCUIOCVrPoXh
+    algorithm: AES
+password:
+  reset:
+    token:
+      validity_in_minute: 60
+application:
+  email:
+    sender: touchblankspot@gmail.com
+  pagination:
+    pageSizeList: 10,15,20,25
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+    lease-renewal-interval-in-seconds: 30
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
+

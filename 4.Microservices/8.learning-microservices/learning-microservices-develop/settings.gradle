@@ -1,0 +1,6 @@
+rootProject.name = 'learning-microservice'
+include 'service-discovery'
+include 'api-gateway'
+include 'user-service'
+include 'address-service'
+

@@ -1,0 +1,20 @@
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true   # Eureka shows service name/id in upper case but actual name will be in lower
+          enabled: true
+server:
+  port: 9090
+  
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: false

@@ -1,0 +1,21 @@
+
+spring:
+  application:
+    name: discovery-service
+
+eureka:
+  server:
+    enable-self-preservation: false
+  client:
+    # added to avoid self registration
+    fetch-registry: 'false'
+    register-with-eureka: 'false'
+logging:
+  level:
+    com:
+      netflix:
+        #discovery: 'OFF'
+        #eureka: 'OFF'
+server:
+  port: '8761'
+
