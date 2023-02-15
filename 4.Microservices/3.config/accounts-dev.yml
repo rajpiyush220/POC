@@ -1,0 +1,11 @@
+accounts:
+  mailDetails:
+    from: dev-accounts@eazybytes.com
+    port: '9020'
+    subject: Your Account Details from Eazy Bank Dev Environment
+    hostName: dev-accounts@eazybytes.com
+  build-version: '2'
+  activeBranches[2]: Indianapollis
+  activeBranches[1]: Berlin
+  msg: Welcome to the EazyBank Accounts Dev application
+  activeBranches[0]: Chennai

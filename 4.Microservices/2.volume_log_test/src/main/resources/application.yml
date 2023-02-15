@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    username: ${spring.datasource.db.user:root}
+    url: jdbc:mysql://${spring.datasource.db.host:localhost}:3306/${spring.datasource.default_schema:log_test}?createDatabaseIfNotExist=true
+    password: ${spring.datasource.db.password:Pikr@1991}
+  jpa:
+    open-in-view: false
+    show_sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: validate

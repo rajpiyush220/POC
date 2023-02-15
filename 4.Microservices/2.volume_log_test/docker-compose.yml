@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+  mysql:
+    container_name: mysql8
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    restart: always
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    networks:
+      - log_test_network
+    environment:
+      - MYSQL_ROOT_PASSWORD=Pikr@1991
+      - TZ=Asia/Calcutta
+  log_test:
+    container_name: log_test
+    build:
+      context: log_test
+      dockerfile: Dockerfile
+    image: log_test:latest
+    ports:
+      - "19999:9999"
+    depends_on:
+      - mysql
+    networks:
+      - log_test_network
+networks:
+  log_test_network:
+    driver: bridge

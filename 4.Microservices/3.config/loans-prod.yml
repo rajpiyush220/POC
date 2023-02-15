@@ -1,0 +1,11 @@
+loans:
+  build-version: '1'
+  mailDetails:
+    hostName: dev-loans@eazybytes.com
+    port: '9021'
+    from: dev-loans@eazybytes.com
+    subject: Your Loan Details from Eazy Bank Dev Environment
+  activeBranches[2]: Indianapollis
+  activeBranches[1]: Berlin
+  msg: Welcome to the EazyBank Loans Prod application
+  activeBranches[0]: Chennai

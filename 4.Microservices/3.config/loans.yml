@@ -1,0 +1,11 @@
+loans:
+  build-version: '3'
+  mailDetails:
+    hostName: default-loans@eazybytes.com
+    port: '9001'
+    from: default-loans@eazybytes.com
+    subject: Your Loan Details from Eazy Bank Default Environment
+  activeBranches[2]: Washington
+  activeBranches[1]: London
+  msg: Welcome to the EazyBank Loans Default application
+  activeBranches[0]: Mumbai

@@ -1,0 +1,11 @@
+accounts:
+  mailDetails:
+    from: prod-accounts@eazybytes.com
+    port: '9010'
+    subject: Your Account Details from Eazy Bank Production Environment
+    hostName: prod-accounts@eazybytes.com
+  build-version: '1'
+  activeBranches[2]: NewYork
+  activeBranches[1]: Paris
+  msg: Welcome to the EazyBank Accounts Prod application
+  activeBranches[0]: Hyderabad
