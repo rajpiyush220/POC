@@ -1,0 +1,30 @@
+spring:
+  config:
+    import: F:\TouchBlankspot\Learning\oauth2\fusion-auth-spring-boot\config\secret.yml
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${app.fusionauth.baseUrl}/.well-known/jwks.json
+          issuer-uri: ${app.fusionauth.baseUrl}/
+oidc:
+  issuer: ${app.fusionauth.issuer}
+  auth-url: ${app.fusionauth.baseUrl}/oauth2/authorize
+  token-url: ${app.fusionauth.baseUrl}/oauth2/token
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
+springdoc:
+  api-docs:
+    enabled: true # it will disable /v3/api-docs endpoint
+  swagger-ui:
+    enabled: true # it will disable swagger ui
+    oauth:
+      client-id: ${app.fusionauth.applicationId}
+      client-secret: ${app.fusionauth.apiKey}
