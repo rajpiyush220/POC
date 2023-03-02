@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="progress">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/progress.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

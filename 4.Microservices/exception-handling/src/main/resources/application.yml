@@ -1,0 +1,9 @@
+
+
+
+app:
+  log:
+    location: ./logs
+    file_name: exception-handling
+server:
+  port: 8081

@@ -1,0 +1,31 @@
+
+
+spring:
+  redis:
+    host: ${spring.datasource.redis.host:localhost}
+    port: {spring.datasource.redis.port:6379}
+  cache:
+    type: redis
+  banner:
+    image:
+      location: classpath:banner.txt
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${spring.datasource.db.user:root}
+    url: jdbc:mysql://${spring.datasource.db.host:localhost}:3306/${spring.datasource.default_schema:user}
+    password: ${spring.datasource.db.password:Pikr@1991}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+springdoc:
+  api-docs:
+    path: /api-docs
+jwt:
+  expirationInMs: 86400000
+  secret: Pikr@123456
+  issuer: User_portal
+server:
+  port: 9000
