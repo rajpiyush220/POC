@@ -1,0 +1,31 @@
+
+
+server:
+  port: 8082
+
+spring:
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    resources:
+      cache:
+        period: 0
+
+feign:
+  url: https://www.googleapis.com/youtube/v3
+  client:
+    config:
+      default:
+        connectTimeout: 500000
+        readTimeout: 500000
+        loggerLevel: full
+
+youtube:
+  api:
+    key: AIzaSyCtzaaUZWaiK9DxKvzMcjtXekb02yXBqRE
+    channelId: UCS5AAtw7E2TmD0X8sw6czeQ
+    part: snippet,id
+    order: date
+    type: video
+
