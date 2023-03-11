@@ -15,7 +15,8 @@ public interface  LatestVideoClient {
                          @RequestParam(value="channelId") String channelId,
                          @RequestParam(value="part") String part,
                          @RequestParam(value="order") String order,
-                         @RequestParam(value="type") String type);
+                         @RequestParam(value="type") String type,
+                         @RequestParam(value="maxResults") Integer maxResults);
 
     @RequestMapping(method = RequestMethod.GET, value = "/videos")
     VideoDurationResponse getVideoDuration(@RequestParam(value="id") String videoId,

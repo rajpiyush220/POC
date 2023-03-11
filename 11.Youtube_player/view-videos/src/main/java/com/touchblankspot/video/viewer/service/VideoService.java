@@ -46,6 +46,9 @@ public class VideoService {
     @Value("${youtube.api.type}")
     private String type;
 
+    @Value("${youtube.api.result.maxResults:50}")
+    private Integer maxResults;
+
     @Value("${youtube.api.duration.part:contentDetails}")
     private String durationPart;
 
@@ -123,7 +126,7 @@ public class VideoService {
             return null;
         }
         properties = new Properties();
-        VideoResponse videoResponse = videoClient.search(apiKey, channelId, part, order, type);
+        VideoResponse videoResponse = videoClient.search(apiKey, channelId, part, order, type,maxResults);
         videoResponse.getItems().stream().map(Item::getId).filter(id -> id.getKind().equals(VIDEO_FILTER))
                 .forEach(id -> properties.put(id.getVideoId(), getDuration(id.getVideoId())));
         try {
