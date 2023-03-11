@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+  inventory:
+    container_name: auto_player
+    image: devtouchblankspot/auto_player
+    restart: always
+    ports:
+      - "80:80"
