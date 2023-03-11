@@ -67,8 +67,8 @@ public class VideoService {
         return getVideoIds().stream().map(id -> String.format(WATCH_URL_FORMAT, id)).toList();
     }
 
-    public Map<String,Long> getWatchVideoDetails() {
-        return loadData().entrySet().stream().collect(Collectors.toMap(k -> String.format(WATCH_URL_FORMAT, k.getKey()), v -> v.getValue()));
+    public Map<String, Long> getWatchVideoDetails() {
+        return loadData().entrySet().stream().collect(Collectors.toMap(k -> String.format(WATCH_URL_FORMAT, k.getKey()), Map.Entry::getValue));
     }
 
     public Map<String, Long> getVideoIdAndDurations() {
@@ -80,7 +80,7 @@ public class VideoService {
     }
 
     public void reloadLatestVideos() {
-        writeProperties();
+        writeProperties(true);
     }
 
     private String getDuration(String videoId) {
@@ -99,8 +99,8 @@ public class VideoService {
     private Map<String, Long> loadData() {
         Properties properties = new Properties();
         try {
-            if(!Files.exists(FILE_PATH)){
-                return writeProperties();
+            if (!Files.exists(FILE_PATH)) {
+                return writeProperties(false);
             }
             properties.load(Files.newInputStream(FILE_PATH));
         } catch (IOException exception) {
@@ -109,20 +109,29 @@ public class VideoService {
         return constructMap(properties);
     }
 
-    private Map<String, Long> writeProperties() {
-        if(Files.exists(FILE_PATH)){
+    private Map<String, Long> writeProperties(Boolean isCleanRequired) {
+        Properties properties;
+        if (isCleanRequired) {
+            try {
+                // delete file if exists
+                Files.deleteIfExists(FILE_PATH);
+            } catch (IOException e) {
+                log.error("Unable to write file", e);
+            }
+        }
+        if (Files.exists(FILE_PATH)) {
             return null;
         }
-        Properties properties = new Properties();
+        properties = new Properties();
         VideoResponse videoResponse = videoClient.search(apiKey, channelId, part, order, type);
         videoResponse.getItems().stream().map(Item::getId).filter(id -> id.getKind().equals(VIDEO_FILTER))
-                .forEach(id -> properties.put(id.getVideoId(),getDuration(id.getVideoId())));
+                .forEach(id -> properties.put(id.getVideoId(), getDuration(id.getVideoId())));
         try {
             // delete file if exists
             Files.deleteIfExists(FILE_PATH);
             properties.store(new FileOutputStream(dataFileName), null);
         } catch (IOException e) {
-            log.error("Unable to write file",e);
+            log.error("Unable to write file", e);
         }
         return constructMap(properties);
     }
