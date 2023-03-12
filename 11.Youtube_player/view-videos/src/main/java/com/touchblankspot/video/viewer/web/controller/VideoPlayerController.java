@@ -29,7 +29,7 @@ public class VideoPlayerController {
 
     private final int maxDurationForViewCount = 45000;
 
-    @GetMapping("/play")
+    @GetMapping(value = {"/play","/watchhour"})
     public String playSpecificVideo(@RequestParam(value = "videoId", defaultValue = "") String videoId,
                                     @RequestParam(value = "recentLimit", defaultValue = "0") Integer recentLimit,
                                     Model model) {
@@ -39,7 +39,7 @@ public class VideoPlayerController {
         return "playVideo";
     }
 
-    @GetMapping("/count")
+    @GetMapping(value = {"/count","/viewcount"})
     public String increaseViewCountSpecificVideo(@RequestParam(value = "videoId", defaultValue = "") String videoId,
                                                  @RequestParam(value = "recentLimit", defaultValue = "0") Integer recentLimit,
                                                  Model model) {
