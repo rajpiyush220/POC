@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Increase View Count</title>
+    <title>Increase Watch Hour</title>
 </head>
 <body>
 <span id="map" style="visibility: hidden" th:text="${jsonData}"></span>
@@ -18,8 +18,8 @@
             for(let index =0; index < keys.length; index++){
                 const key = keys[index];
                 const duration = parseInt(jsonData[key]);
-                let currentX = (index % 2 === 0) ? 100  : 200;
-                let currentY = (index % 2 === 0) ? 100  : 200;
+                let currentX = randomXPosition();
+                let currentY = randomYPosition();
                 let x = window.open(key, '', (strWindowFeatures + ",left=" + currentX + ",top=" + currentY));
                 x.focus();
                 setTimeout(() => {
@@ -32,5 +32,11 @@
             console.log("Waited 2 Minutes to restart next loop");
         }
     });
+    function randomYPosition() {
+        return Math.floor(Math.random() * ((h-10) - 10 + 1) + 10)
+    }
+    function randomXPosition() {
+        return Math.floor(Math.random() * ((w -10) - 10 + 1) + 10)
+    }
 </script>
 </html>

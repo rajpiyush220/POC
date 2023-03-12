@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -58,8 +58,6 @@ public class VideoService {
 
     private final String WATCH_URL_FORMAT = "https://www.youtube.com/watch?v=%s&ab_channel=MesmerizingNatureVlogs";
 
-    private final String EMBEDDED_URL_FORMAT = "https://www.youtube.com/embed/%s?&autoplay=1&loop=1&mute=1&enablejsapi=1&playsinline=1&playlist=%s";
-
     private final Path FILE_PATH = Path.of(dataFileName);
 
     public Set<String> getVideoIds() {
@@ -71,15 +69,23 @@ public class VideoService {
     }
 
     public Map<String, Long> getWatchVideoDetails() {
-        return loadData().entrySet().stream().collect(Collectors.toMap(k -> String.format(WATCH_URL_FORMAT, k.getKey()), Map.Entry::getValue));
+        Map<String, Long> videoData =  loadData();
+        return videoData.keySet().stream().collect(Collectors.toMap(key -> String.format(WATCH_URL_FORMAT, key),
+                videoData::get,
+                (e1, e2) -> e1,
+                LinkedHashMap::new));
+    }
+
+    public Map<String, Long> get20RecentVideoDetails() {
+        Map<String, Long> videoData =  loadData();
+        return videoData.keySet().stream().limit(20).collect(Collectors.toMap(key -> String.format(WATCH_URL_FORMAT, key),
+                videoData::get,
+                (e1, e2) -> e1,
+                LinkedHashMap::new));
     }
 
     public Map<String, Long> getVideoIdAndDurations() {
         return loadData();
-    }
-
-    public List<String> getEmbeddedUrls() {
-        return getVideoIds().stream().map(id -> String.format(EMBEDDED_URL_FORMAT, id, id)).toList();
     }
 
     public void reloadLatestVideos() {
@@ -140,7 +146,7 @@ public class VideoService {
     }
 
     private Map<String, Long> constructMap(Properties properties) {
-        Map<String, Long> map = new HashMap<>();
+        Map<String, Long> map = new LinkedHashMap<>();
         if (properties != null && !properties.isEmpty()) {
             properties.stringPropertyNames().forEach(key -> map.put(key, Long.valueOf(properties.get(key).toString())));
         }

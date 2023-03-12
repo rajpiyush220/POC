@@ -14,13 +14,15 @@
     const strWindowFeatures = "location=yes,height=470,width=900,scrollbars=yes,status=yes";
     const jsonData = JSON.parse($('#map').html());
     const keys = Object.keys(jsonData);
+    const w = window.innerWidth;
+    const h = window.innerHeight;
     $(document).ready(async function () {
         while(true){
             for(let index =0; index < keys.length; index++){
                 const key = keys[index];
                 const duration = parseInt(jsonData[key]);
-                let currentX = (index % 2 === 0) ? 100  : 200;
-                let currentY = (index % 2 === 0) ? 100  : 200;
+                let currentX = randomXPosition();
+                let currentY = randomYPosition();
                 let x = window.open(key, '', (strWindowFeatures + ",left=" + currentX + ",top=" + currentY));
                 x.focus();
                 const delayTime = duration > maxDuration ? maxDuration : duration;
@@ -34,5 +36,12 @@
             console.log("Waited 40s to restart next loop");
         }
     });
+
+    function randomYPosition() {
+        return Math.floor(Math.random() * ((h-10) - 10 + 1) + 10)
+    }
+    function randomXPosition() {
+        return Math.floor(Math.random() * ((w -10) - 10 + 1) + 10)
+    }
 </script>
 </html>

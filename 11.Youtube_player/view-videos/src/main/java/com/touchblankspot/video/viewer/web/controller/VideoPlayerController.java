@@ -31,10 +31,30 @@ public class VideoPlayerController {
         return "increaseViewCount";
     }
 
+    @GetMapping("/viewLatest20")
+    public String viewLatest20(Model model){
+        try{
+            model.addAttribute("jsonData",new ObjectMapper().writeValueAsString(videoService. get20RecentVideoDetails()));
+        } catch (JsonProcessingException e) {
+            model.addAttribute("jsonData","");
+        }
+        return "increaseViewCount";
+    }
+
     @GetMapping("/watchhour")
     public String increaseWatchHour(Model model){
         try{
             model.addAttribute("jsonData",new ObjectMapper().writeValueAsString(videoService.getWatchVideoDetails()));
+        } catch (JsonProcessingException e) {
+            model.addAttribute("jsonData","");
+        }
+        return "increaseWatchHour";
+    }
+
+    @GetMapping("/watchLatest20Video")
+    public String watchLatest20Video(Model model){
+        try{
+            model.addAttribute("jsonData",new ObjectMapper().writeValueAsString(videoService.get20RecentVideoDetails()));
         } catch (JsonProcessingException e) {
             model.addAttribute("jsonData","");
         }
