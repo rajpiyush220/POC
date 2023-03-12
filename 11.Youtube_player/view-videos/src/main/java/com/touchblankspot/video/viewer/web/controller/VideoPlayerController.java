@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/video/player")
@@ -21,44 +24,38 @@ public class VideoPlayerController {
     @NonNull
     private final VideoService videoService;
 
-    @GetMapping("/viewcount")
-    public String increaseViewCount(Model model){
-        try{
-            model.addAttribute("jsonData",new ObjectMapper().writeValueAsString(videoService.getWatchVideoDetails()));
-        } catch (JsonProcessingException e) {
-            model.addAttribute("jsonData","");
-        }
-        return "increaseViewCount";
+    @NonNull
+    private final ObjectMapper objectMapper;
+
+    private final int maxDurationForViewCount = 45000;
+
+    @GetMapping("/play")
+    public String playSpecificVideo(@RequestParam(value = "videoId", defaultValue = "") String videoId,
+                                    @RequestParam(value = "recentLimit", defaultValue = "0") Integer recentLimit,
+                                    Model model) {
+        Map<String, String> videoDetails = videoService.getWatchVideoDetails(videoId,recentLimit);
+        model.addAttribute("jsonData", mapToJsonString(videoDetails));
+        model.addAttribute("maxDuration", "0");
+        return "playVideo";
     }
 
-    @GetMapping("/viewLatest20")
-    public String viewLatest20(Model model){
-        try{
-            model.addAttribute("jsonData",new ObjectMapper().writeValueAsString(videoService. get20RecentVideoDetails()));
-        } catch (JsonProcessingException e) {
-            model.addAttribute("jsonData","");
-        }
-        return "increaseViewCount";
+    @GetMapping("/count")
+    public String increaseViewCountSpecificVideo(@RequestParam(value = "videoId", defaultValue = "") String videoId,
+                                                 @RequestParam(value = "recentLimit", defaultValue = "0") Integer recentLimit,
+                                                 Model model) {
+        Map<String, String> videoDetails = videoService.getWatchVideoDetails(videoId,recentLimit);
+        model.addAttribute("jsonData", mapToJsonString(videoDetails));
+        model.addAttribute("maxDuration", maxDurationForViewCount);
+        return "playVideo";
     }
 
-    @GetMapping("/watchhour")
-    public String increaseWatchHour(Model model){
-        try{
-            model.addAttribute("jsonData",new ObjectMapper().writeValueAsString(videoService.getWatchVideoDetails()));
+    private String mapToJsonString(Map<?, ?> map) {
+        try {
+            return objectMapper.writeValueAsString(map);
         } catch (JsonProcessingException e) {
-            model.addAttribute("jsonData","");
+            log.error("Unable to parse map to json");
+            return "";
         }
-        return "increaseWatchHour";
-    }
-
-    @GetMapping("/watchLatest20Video")
-    public String watchLatest20Video(Model model){
-        try{
-            model.addAttribute("jsonData",new ObjectMapper().writeValueAsString(videoService.get20RecentVideoDetails()));
-        } catch (JsonProcessingException e) {
-            model.addAttribute("jsonData","");
-        }
-        return "increaseWatchHour";
     }
 
 }

@@ -22,10 +22,11 @@ public class VideoController {
     @NonNull
     private final VideoService videoService;
 
+
     @GetMapping(value = "/reloadLatest")
     public ResponseEntity<String> refreshVideos() {
-        videoService.reloadLatestVideos();
-        return ResponseEntity.ok("Video reloaded");
+        int count = videoService.reloadLatestVideos();
+        return ResponseEntity.ok(count + " Video reloaded.");
     }
 
     @GetMapping("/watchUrls")
@@ -39,7 +40,7 @@ public class VideoController {
     }
 
     @GetMapping("/durations")
-    public ResponseEntity<Map<String,Long>> getVideoIdAndDurations(){
+    public ResponseEntity<Map<String, String>> getVideoIdAndDurations() {
         return ResponseEntity.ok(videoService.getVideoIdAndDurations());
     }
 }

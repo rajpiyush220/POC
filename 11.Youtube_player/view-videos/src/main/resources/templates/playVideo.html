@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Increase Watch Hour</title>
+    <title>Increase View Count</title>
 </head>
 <body>
 <span id="map" style="visibility: hidden" th:text="${jsonData}"></span>
@@ -10,6 +10,7 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script type="text/javascript">
     const delay = ms => new Promise(res => setTimeout(res, ms));
+    const maxDuration = [[${maxDuration}]];
     const strWindowFeatures = "location=yes,height=470,width=900,scrollbars=yes,status=yes";
     const jsonData = JSON.parse($('#map').html());
     const keys = Object.keys(jsonData);
@@ -24,16 +25,18 @@
                 let currentY = randomYPosition();
                 let x = window.open(key, '', (strWindowFeatures + ",left=" + currentX + ",top=" + currentY));
                 x.focus();
+                const delayTime = maxDuration > 0 ? ( duration > maxDuration ? maxDuration : duration) : duration;
                 setTimeout(() => {
                     x.close();
-                }, duration);
-                await delay(120000);
-                console.log("Waited 2 Minutes to play next video");
+                }, delayTime);
+                await delay(30000);
+                console.log("Waited 30s to play next video");
             }
-            await delay(120000);
-            console.log("Waited 2 Minutes to restart next loop");
+            await delay(40000);
+            console.log("Waited 40s to restart next loop");
         }
     });
+
     function randomYPosition() {
         return Math.floor(Math.random() * ((h-10) - 10 + 1) + 10)
     }
