@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +29,8 @@ public class VideoPlayerController {
 
     private final int maxDurationForViewCount = 45000;
 
+    private final long largeVideoMinLength = 100 * 1000;
+
     @GetMapping(value = {"/play", "/watchhour"})
     public String playSpecificVideo(@RequestParam(value = "videoId", defaultValue = "") String videoId,
                                     @RequestParam(value = "recentLimit", defaultValue = "0") Integer recentLimit,
@@ -37,7 +38,7 @@ public class VideoPlayerController {
         Map<String, String> videoDetails = videoService.getWatchVideoDetails(videoId, recentLimit);
         model.addAttribute("jsonData", mapToJsonString(videoDetails));
         model.addAttribute("maxDuration", "0");
-        model.addAttribute("title",  "Increase Watch Hour");
+        model.addAttribute("title", "Increase Watch Hour");
         return "playVideo";
     }
 
@@ -57,6 +58,15 @@ public class VideoPlayerController {
                              Model model) {
         model.addAttribute("tabCount", tabCount);
         return "startVideo";
+    }
+
+    @GetMapping(value = {"/playBySize"})
+    public String playLargeVideo(@RequestParam(value = "playSmall", defaultValue = "false") Boolean playSmall, Model model) {
+        Map<String, String> videoDetails = videoService.getVideoDetailsByLength(largeVideoMinLength, playSmall);
+        model.addAttribute("jsonData", mapToJsonString(videoDetails));
+        model.addAttribute("maxDuration", "0");
+        model.addAttribute("title", String.format("Playing %s video", playSmall ? "Small" : "Large"));
+        return "playVideo";
     }
 
     private String mapToJsonString(Map<?, ?> map) {

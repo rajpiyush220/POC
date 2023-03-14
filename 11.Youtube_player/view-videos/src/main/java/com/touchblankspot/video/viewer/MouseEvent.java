@@ -7,7 +7,7 @@ public class MouseEvent {
 
     private static Random rand = new Random();
 
-    public static void main(String[] args) throws AWTException {
+    public static void main(String[] args) throws AWTException, InterruptedException {
 
         Robot robot = new Robot();
         robot.setAutoDelay(5000); // Time to wait after firing an event
@@ -18,6 +18,7 @@ public class MouseEvent {
             int y = isAdded ? p.y -getRandomNumber() : p.y + getRandomNumber();
             isAdded = !isAdded;
             robot.mouseMove(x, y); // trigger event, this makes the OS to
+            Thread.sleep(20000);
             // register an event and thereby resetting
             // the idle time
         }

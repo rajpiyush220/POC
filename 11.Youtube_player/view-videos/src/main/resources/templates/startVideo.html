@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Start Video window</title>
@@ -10,25 +10,15 @@
 <script type="text/javascript">
     const delay = ms => new Promise(res => setTimeout(res, ms));
     const tabCount = parseInt([[${tabCount}]]);
-    const strWindowFeatures = "location=yes,height=370,width=500,scrollbars=yes,status=yes";
     const w = window.innerWidth;
     const h = window.innerHeight;
     $(document).ready(async function () {
         for(let index =0; index < tabCount; index++){
-            let currentX = randomXPosition();
-            let currentY = randomYPosition();
-            let newTab = window.open('play', '', (strWindowFeatures + ",left=" + currentX + ",top=" + currentY));
+            let newTab = window.open('play', '');
             newTab.focus();
             await delay(40000);
             console.log("Waited 40s to play next video");
         }
     });
-
-    function randomYPosition() {
-        return Math.floor(Math.random() * ((h-100) - 100 + 1) + 100)
-    }
-    function randomXPosition() {
-        return Math.floor(Math.random() * ((w -100) - 100 + 1) + 100)
-    }
 </script>
 </html>

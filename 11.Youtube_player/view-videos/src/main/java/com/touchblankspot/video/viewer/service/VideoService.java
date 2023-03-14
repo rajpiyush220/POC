@@ -74,10 +74,22 @@ public class VideoService {
     public Map<String, String> getWatchVideoDetails(Integer limit) {
         OrderedProperties properties = loadData();
         int finalLimit = (limit > 0 && limit < properties.size()) ? limit : properties.size();
-        return new ArrayList<>(properties.entrySet()).subList(0,finalLimit).stream().collect(
+        return new ArrayList<>(properties.entrySet()).subList(0, finalLimit).stream().collect(
                 Collectors.toMap(entry -> String.format(WATCH_URL_FORMAT, entry.getKey()), Map.Entry::getValue,
                         (e1, e2) -> e1,
                         LinkedHashMap::new));
+    }
+
+    public Map<String, String> getVideoDetailsByLength(long largeVideoMinLength, Boolean isSmallRequired) {
+        OrderedProperties properties = loadData();
+        return properties.entrySet().stream().filter(entry ->
+                        (isSmallRequired && Long.parseLong(entry.getValue()) < largeVideoMinLength) ||
+                                (!isSmallRequired && Long.parseLong(entry.getValue()) > largeVideoMinLength)
+                )
+                .collect(
+                        Collectors.toMap(entry -> String.format(WATCH_URL_FORMAT, entry.getKey()), Map.Entry::getValue,
+                                (e1, e2) -> e1,
+                                LinkedHashMap::new));
     }
 
     public Map<String, String> getWatchVideoDetailById(String videoId) {
