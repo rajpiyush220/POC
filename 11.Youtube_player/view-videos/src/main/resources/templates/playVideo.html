@@ -17,24 +17,21 @@
     const w = window.innerWidth;
     const h = window.innerHeight;
     $(document).ready(async function () {
-        while(true){
-            for(let index =0; index < keys.length; index++){
-                const key = keys[index];
-                const duration = parseInt(jsonData[key]);
-                let currentX = randomXPosition();
-                let currentY = randomYPosition();
-                let x = window.open(key, '', (strWindowFeatures + ",left=" + currentX + ",top=" + currentY));
-                x.focus();
-                const delayTime = maxDuration > 0 ? ( duration > maxDuration ? maxDuration : duration) : duration;
-                setTimeout(() => {
-                    x.close();
-                }, delayTime);
-                await delay(delayTime);
-                console.log("Waited 30s to play next video");
-            }
-            await delay(40000);
-            console.log("Waited 40s to restart next loop");
+        for(let index =0; index < keys.length; index++){
+            const key = keys[index];
+            const duration = parseInt(jsonData[key]);
+            let currentX = randomXPosition();
+            let currentY = randomYPosition();
+            let x = window.open(key, '', (strWindowFeatures + ",left=" + currentX + ",top=" + currentY));
+            x.focus();
+            const delayTime = maxDuration > 0 ? ( duration > maxDuration ? maxDuration : duration) : duration;
+            setTimeout(() => {
+                x.close();
+            }, delayTime);
+            await delay(delayTime);
+            console.log("Waited 30s to play next video");
         }
+        window.close();
     });
 
     function randomYPosition() {
