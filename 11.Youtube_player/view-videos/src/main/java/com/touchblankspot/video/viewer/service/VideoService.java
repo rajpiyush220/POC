@@ -1,15 +1,10 @@
 package com.touchblankspot.video.viewer.service;
 
-import com.touchblankspot.video.viewer.client.LatestVideoClient;
-import com.touchblankspot.video.viewer.client.types.Item;
-import com.touchblankspot.video.viewer.client.types.VideoDurationResponse;
-import com.touchblankspot.video.viewer.client.types.VideoResponse;
 import com.touchblankspot.video.viewer.util.OrderedProperties;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -17,13 +12,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,38 +26,13 @@ import java.util.stream.Collectors;
 public class VideoService {
 
     @NonNull
-    private final LatestVideoClient videoClient;
-
-    @Value("${youtube.api.key}")
-    private String apiKey;
-
-    @Value("${youtube.api.channelId}")
-    private String channelId;
-
-    @Value("${youtube.api.part}")
-    private String part;
-
-    @Value("${youtube.api.order}")
-    private String order;
-
-    @Value("${youtube.api.type}")
-    private String type;
-
-    @Value("${youtube.api.result.maxResults:50}")
-    private Integer maxResults;
-
-    @Value("${youtube.api.duration.part:contentDetails}")
-    private String durationPart;
+    private final YoutubeService youtubeService;
 
     private final String dataFileName = "YoutubeData.properties";
-
-    private final String VIDEO_FILTER = "youtube#video";
 
     private final String WATCH_URL_FORMAT = "https://www.youtube.com/watch?v=%s";
 
     private final Path FILE_PATH = Path.of(dataFileName);
-
-    private final Random random = new Random();
 
     public Set<String> getVideoIds() {
         return loadData().stringPropertyNames();
@@ -119,18 +87,6 @@ public class VideoService {
         return Objects.isNull(properties) ? 0 : properties.size();
     }
 
-    private String getDuration(String videoId) {
-        VideoDurationResponse durationResponse = videoClient.getVideoDuration(videoId, apiKey, durationPart);
-        String durationString = durationResponse.getItems().stream().map(item -> item.getContentDetails().getDuration()).findFirst().orElse("");
-        long duration = 0L;
-        if (durationString.length() > 0) {
-            Duration d = Duration.parse(durationString);
-            duration = d.get(java.time.temporal.ChronoUnit.SECONDS) ;
-            duration = addAdditionalTime(duration) + (duration * 1000 );
-        }
-        return String.valueOf(duration);
-    }
-
     private OrderedProperties loadData() {
         OrderedProperties properties = new OrderedProperties();
         try {
@@ -145,7 +101,7 @@ public class VideoService {
     }
 
     private OrderedProperties writeProperties(Boolean isCleanRequired) {
-        OrderedProperties properties;
+
         if (isCleanRequired) {
             try {
                 // delete file if exists
@@ -157,11 +113,7 @@ public class VideoService {
         if (Files.exists(FILE_PATH)) {
             return null;
         }
-        properties = new OrderedProperties();
-        VideoResponse videoResponse = videoClient.search(apiKey, channelId, part, order, type, maxResults);
-
-        videoResponse.getItems().stream().map(Item::getId).filter(id -> id.getKind().equals(VIDEO_FILTER))
-                .forEach(id -> properties.setProperty(id.getVideoId(), getDuration(id.getVideoId())));
+        OrderedProperties properties = youtubeService.loadVideoDetails();
         try {
             // delete file if exists
             Files.deleteIfExists(FILE_PATH);
@@ -170,10 +122,5 @@ public class VideoService {
             log.error("Unable to write file", e);
         }
         return properties;
-    }
-
-    private long addAdditionalTime(long videoDuration) {
-        long baseDuration = (videoDuration < 100 ? videoDuration : 2) * 1000;
-        return baseDuration + ((random.nextInt(50 - 29) + 20) * 1000);
     }
 }

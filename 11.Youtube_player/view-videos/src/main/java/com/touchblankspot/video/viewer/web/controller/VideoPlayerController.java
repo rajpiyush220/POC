@@ -27,10 +27,6 @@ public class VideoPlayerController {
     @NonNull
     private final ObjectMapper objectMapper;
 
-    private final int maxDurationForViewCount = 45000;
-
-    private final long largeVideoMinLength = 100 * 1000;
-
     @GetMapping(value = {"/play", "/watchhour"})
     public String playSpecificVideo(@RequestParam(value = "videoId", defaultValue = "") String videoId,
                                     @RequestParam(value = "recentLimit", defaultValue = "0") Integer recentLimit,
@@ -48,6 +44,7 @@ public class VideoPlayerController {
                                                  Model model) {
         Map<String, String> videoDetails = videoService.getWatchVideoDetails(videoId, recentLimit);
         model.addAttribute("jsonData", mapToJsonString(videoDetails));
+        int maxDurationForViewCount = 45000;
         model.addAttribute("maxDuration", maxDurationForViewCount);
         model.addAttribute("title", "Increase Watch Hour");
         return "playVideo";
@@ -62,6 +59,7 @@ public class VideoPlayerController {
 
     @GetMapping(value = {"/playBySize"})
     public String playLargeVideo(@RequestParam(value = "playSmall", defaultValue = "false") Boolean playSmall, Model model) {
+        long largeVideoMinLength = 100 * 1000;
         Map<String, String> videoDetails = videoService.getVideoDetailsByLength(largeVideoMinLength, playSmall);
         model.addAttribute("jsonData", mapToJsonString(videoDetails));
         model.addAttribute("maxDuration", "0");
