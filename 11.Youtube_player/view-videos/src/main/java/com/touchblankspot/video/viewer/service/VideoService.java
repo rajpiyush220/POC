@@ -23,6 +23,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -62,6 +63,8 @@ public class VideoService {
     private final String WATCH_URL_FORMAT = "https://www.youtube.com/watch?v=%s";
 
     private final Path FILE_PATH = Path.of(dataFileName);
+
+    private final Random random = new Random();
 
     public Set<String> getVideoIds() {
         return loadData().stringPropertyNames();
@@ -122,9 +125,8 @@ public class VideoService {
         long duration = 0L;
         if (durationString.length() > 0) {
             Duration d = Duration.parse(durationString);
-            duration = d.get(java.time.temporal.ChronoUnit.SECONDS) * 1000;
-            // adding 10 sec load time
-            duration = duration + 10 * 1000;
+            duration = d.get(java.time.temporal.ChronoUnit.SECONDS) ;
+            duration = addAdditionalTime(duration) + (duration * 1000 );
         }
         return String.valueOf(duration);
     }
@@ -168,5 +170,10 @@ public class VideoService {
             log.error("Unable to write file", e);
         }
         return properties;
+    }
+
+    private long addAdditionalTime(long videoDuration) {
+        long baseDuration = (videoDuration < 100 ? videoDuration : 2) * 1000;
+        return baseDuration + ((random.nextInt(50 - 29) + 20) * 1000);
     }
 }
