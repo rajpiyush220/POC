@@ -30,8 +30,10 @@ public class VideoPlayerController {
     @GetMapping(value = {"/play", "/watchhour"})
     public String playSpecificVideo(@RequestParam(value = "videoId", defaultValue = "") String videoId,
                                     @RequestParam(value = "recentLimit", defaultValue = "0") Integer recentLimit,
+                                    @RequestParam(value = "pageSize", defaultValue = "0") Integer pageSize,
+                                    @RequestParam(value = "pageNo", defaultValue = "0") Integer pageNo,
                                     Model model) {
-        Map<String, String> videoDetails = videoService.getWatchVideoDetails(videoId, recentLimit);
+        Map<String, String> videoDetails = videoService.getWatchVideoDetails(videoId, recentLimit, pageSize, pageNo);
         model.addAttribute("jsonData", mapToJsonString(videoDetails));
         model.addAttribute("maxDuration", "0");
         model.addAttribute("title", "Increase Watch Hour");
@@ -51,9 +53,16 @@ public class VideoPlayerController {
     }
 
     @GetMapping(value = {"/start"})
-    public String playVideos(@RequestParam(value = "tabCount", defaultValue = "1") Integer tabCount,
+    public String playVideos(@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
                              Model model) {
-        model.addAttribute("tabCount", tabCount);
+        int totalVideo = videoService.getVideoCount();
+        int pageCount = totalVideo;
+        if (totalVideo > pageSize) {
+            pageCount = totalVideo / pageSize;
+            pageCount += (totalVideo % pageSize > 0 ? 1 : 0);
+        }
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("pageCount", pageCount);
         return "startVideo";
     }
 

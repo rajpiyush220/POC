@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -33,6 +35,8 @@ public class VideoService {
     private final String WATCH_URL_FORMAT = "https://www.youtube.com/watch?v=%s";
 
     private final Path FILE_PATH = Path.of(dataFileName);
+
+    private OrderedProperties properties = new OrderedProperties();
 
     public Set<String> getVideoIds() {
         return loadData().stringPropertyNames();
@@ -76,6 +80,25 @@ public class VideoService {
                 getWatchVideoDetailById(videoId) : getWatchVideoDetails(recentLimit);
     }
 
+    public Map<String, String> getWatchVideoDetails(String videoId, Integer recentLimit, Integer pageSize, Integer pageNo) {
+        Map<String, String> videoDetails = new HashMap<>();
+        if (StringUtils.hasText(videoId) && recentLimit < 1) {
+            videoDetails.putAll(getWatchVideoDetailById(videoId));
+        } else if (recentLimit > 0) {
+            videoDetails.putAll(getWatchVideoDetails(recentLimit));
+        } else {
+            OrderedProperties properties = loadData();
+            int videoSize = properties.size();
+            int startLimit = pageNo * pageSize;
+            startLimit = Math.max(startLimit, 0);
+            int endLimit = (pageNo + 1) * pageSize;
+            endLimit = Math.min(endLimit, videoSize);
+            new LinkedList<>(properties.stringPropertyNames()).subList(startLimit, endLimit).forEach(key ->
+                    videoDetails.put(String.format(WATCH_URL_FORMAT, key), properties.getProperty(key)));
+        }
+        return videoDetails;
+    }
+
 
     public Map<String, String> getVideoIdAndDurations() {
         OrderedProperties properties = loadData();
@@ -83,12 +106,18 @@ public class VideoService {
     }
 
     public int reloadLatestVideos() {
-        OrderedProperties properties = writeProperties(true);
+        properties = writeProperties(true);
         return Objects.isNull(properties) ? 0 : properties.size();
     }
 
+    public int getVideoCount() {
+        return loadData().size();
+    }
+
     private OrderedProperties loadData() {
-        OrderedProperties properties = new OrderedProperties();
+        if (!properties.isEmpty()) {
+            return properties;
+        }
         try {
             if (!Files.exists(FILE_PATH)) {
                 return writeProperties(false);
