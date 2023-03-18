@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+</head>
+<body>
+<span id="map" style="visibility: hidden" th:text="${jsonData}"></span>
+<h2 style="text-align: center;font-size: xxx-large;"><span id="startMessage"
+                                                           style="color: darkgreen; text-align: center;">Video play is in progress...</span>
+</h2>
+<h2 style="text-align: center;font-size: xxx-large;"><span id="finalMessage" style="color: red; text-align: center;">Video play Completed.</span>
+</h2>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+    const strWindowFeatures = "location=yes,height=370,width=470,scrollbars=yes,status=yes";
+    const jsonData = JSON.parse($('#map').html());
+    const keys = Object.keys(jsonData);
+    const keyLength = keys.length;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    $('#finalMessage').hide();
+    $(document).ready(async function () {
+        for (let index = 0; index < keyLength; index++) {
+            const key = keys[index];
+            const duration = parseInt(jsonData[key]);
+            let currentX = randomXPosition();
+            let currentY = randomYPosition();
+            let x = window.open(key, '', (strWindowFeatures + ",left=" + currentX + ",top=" + currentY));
+            x.focus();
+            setTimeout(() => {
+                x.close();
+            }, duration);
+            $('#startMessage').html("Playing <b><u>" + (index + 1) + "</u></b> out of <b><u>" + keyLength + "</u></b> Video");
+            $(document).prop('title', "Playing " + (index + 1) + " out of " + keyLength + " Video");
+            await delay(30000);
+            console.log("Waited 30s to play next video");
+        }
+        $('#startMessage').hide();
+        $('#finalMessage').html("Total <b><u>" + keyLength + "</u></b> video played successfully.");
+        $(document).prop('title', "Total " + keyLength + " video played successfully.");
+        $('#finalMessage').show();
+    });
+
+    function randomYPosition() {
+        return Math.floor(Math.random() * ((h - 10) - 10 + 1) + 10)
+    }
+
+    function randomXPosition() {
+        return Math.floor(Math.random() * ((w - 10) - 10 + 1) + 10)
+    }
+</script>
+</html>

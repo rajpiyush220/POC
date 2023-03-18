@@ -1,12 +1,10 @@
-
-
 server:
   port: 80
 
 spring:
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3306/youtube_player?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/video_player?createDatabaseIfNotExist=true
     password: Pikr@1991
   jpa:
     open-in-view: false
@@ -20,9 +18,12 @@ spring:
     cache: false
     mode: HTML
     encoding: UTF-8
-    resources:
-      cache:
-        period: 0
+
+logging:
+  level:
+    project:
+      user:
+        UserClient: DEBUG
 
 feign:
   url: https://www.googleapis.com/youtube/v3
@@ -38,13 +39,14 @@ youtube:
     box:
       key: AIzaSyCtzaaUZWaiK9DxKvzMcjtXekb02yXBqRE
       channelId: UCS5AAtw7E2TmD0X8sw6czeQ
+      name: What is in the box ?
     world:
       key: AIzaSyCMxL_WlG_hghJ4AvGBRUYwXQU_D-_e7Ug
       channelId: UCGNfPOCD69vlOu6aSSzd_5w
+      name: World Of Roma😇🥰
   api:
     part: snippet,id
     order: date
     type: video
     duration_part: snippet,contentDetails,player
     max_results: 50
-

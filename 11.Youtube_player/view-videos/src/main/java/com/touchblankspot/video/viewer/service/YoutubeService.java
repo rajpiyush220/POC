@@ -52,8 +52,7 @@ public class YoutubeService {
         long duration = 0L;
         if (durationString.length() > 0) {
             Duration d = Duration.parse(durationString);
-            duration = d.get(java.time.temporal.ChronoUnit.SECONDS);
-            duration = addAdditionalTime(duration) + (duration * 1000);
+            duration = d.get(java.time.temporal.ChronoUnit.SECONDS) * 1000;
         }
         return String.valueOf(duration);
     }

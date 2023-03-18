@@ -1,0 +1,4 @@
+2023-03-17 20:46:41,741 INFO o.s.b.StartupInfoLogger [main] Starting ViewVideosApplication using Java 17.0.2 with PID 20860 (F:\TouchBlankspot\POC\11.Youtube_player\view-videos\build\classes\java\main started by mailt in F:\TouchBlankspot\POC\11.Youtube_player\view-videos)
+2023-03-17 20:46:41,745 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v3.0.4, Spring v6.0.6
+2023-03-17 20:46:41,747 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-03-17 20:46:55,726 INFO o.s.b.StartupInfoLogger [main] Started ViewVideosApplication in 16.121 seconds (process running for 17.585)

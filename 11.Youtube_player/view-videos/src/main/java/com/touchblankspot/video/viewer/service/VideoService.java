@@ -1,5 +1,6 @@
 package com.touchblankspot.video.viewer.service;
 
+import com.touchblankspot.video.viewer.type.Video;
 import com.touchblankspot.video.viewer.util.OrderedProperties;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,8 @@ public class VideoService {
     private final Path FILE_PATH = Path.of(dataFileName);
 
     private OrderedProperties properties = new OrderedProperties();
+
+    private final Integer[] durationLimits = {1200000, 1800000};
 
     public Set<String> getVideoIds() {
         return loadData().stringPropertyNames();
@@ -113,6 +116,33 @@ public class VideoService {
     public int getVideoCount() {
         return loadData().size();
     }
+
+    public List<List<Video>> constructVideoWithLimit() {
+        List<List<Video>> result = new ArrayList<>();
+        long currentDuration = 0L;
+        List<Video> currentData = new ArrayList<>();
+        List<Video> videos = constructVideoDetails();
+        for (int index = 0; index < videos.size(); index++) {
+            Video video = videos.get(index);
+            currentDuration += video.getDuration();
+            currentData.add(video);
+            if (currentDuration >= 900000 && currentDuration <= 1200000) {
+                result.add(currentData);
+                currentData = new ArrayList<>();
+                currentDuration = 0L;
+            }
+            if (index == (videos.size() - 1) && currentDuration > 0) {
+                result.add(currentData);
+            }
+        }
+        return result;
+    }
+
+    private List<Video> constructVideoDetails() {
+        return loadData().entrySet().stream().map(entry -> Video.builder().videoId(entry.getKey()).duration(Long.valueOf(entry.getValue())).build())
+                .toList();
+    }
+
 
     private OrderedProperties loadData() {
         if (!properties.isEmpty()) {

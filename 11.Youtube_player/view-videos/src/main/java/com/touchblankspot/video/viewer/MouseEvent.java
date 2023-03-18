@@ -1,6 +1,14 @@
 package com.touchblankspot.video.viewer;
 
 import java.awt.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Random;
 
 public class MouseEvent {
@@ -9,7 +17,17 @@ public class MouseEvent {
 
     public static void main(String[] args) throws AWTException, InterruptedException {
 
-        Robot robot = new Robot();
+        LocalDate localDate = LocalDate.now();
+
+        LocalDateTime localDateTime = LocalDateTime.of(localDate, LocalTime.MIDNIGHT);
+
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
+
+        String str =localDateTime.format(formatter);
+        System.out.println(localDateTime);
+
+       /* Robot robot = new Robot();
         robot.setAutoDelay(5000); // Time to wait after firing an event
         Boolean isAdded = true;
         while(true) {
@@ -21,7 +39,7 @@ public class MouseEvent {
             Thread.sleep(20000);
             // register an event and thereby resetting
             // the idle time
-        }
+        }*/
     }
 
     private static int getRandomNumber(){

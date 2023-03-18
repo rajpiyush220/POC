@@ -1,6 +1,9 @@
 package com.touchblankspot.video.viewer.web.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.touchblankspot.video.viewer.service.VideoService;
+import com.touchblankspot.video.viewer.type.Video;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +25,9 @@ public class VideoController {
     @NonNull
     private final VideoService videoService;
 
+    @NonNull
+    private final ObjectMapper objectMapper;
+
 
     @GetMapping(value = "/reloadLatest")
     public ResponseEntity<String> refreshVideos() {
@@ -29,18 +35,20 @@ public class VideoController {
         return ResponseEntity.ok(count + " Video reloaded.");
     }
 
-    @GetMapping("/watchUrls")
-    public ResponseEntity<List<String>> getWatchUrls() {
-        return ResponseEntity.ok(videoService.getWatchUrls());
+    @GetMapping(value = "/limits")
+    public ResponseEntity<String> limits() {
+        List<List<Video>> lists = videoService.constructVideoWithLimit();
+        return ResponseEntity.ok(toJson(lists));
     }
 
-    @GetMapping("/embeddedUrls")
-    public ResponseEntity<List<String>> getEmbeddedUrls() {
-        return ResponseEntity.ok(videoService.getWatchUrls());
+    private String toJson(Object object) {
+        try {
+            return objectMapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            log.error("Unable to parse map to json");
+            return "";
+        }
     }
 
-    @GetMapping("/durations")
-    public ResponseEntity<Map<String, String>> getVideoIdAndDurations() {
-        return ResponseEntity.ok(videoService.getVideoIdAndDurations());
-    }
+
 }
