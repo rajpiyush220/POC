@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3306/video_player?createDatabaseIfNotExist=true
+    url: jdbc:mysql://192.168.48.2:3306/video_player?createDatabaseIfNotExist=true
     password: Pikr@1991
   jpa:
     open-in-view: false

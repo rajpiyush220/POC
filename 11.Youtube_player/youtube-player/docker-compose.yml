@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+  player:
+    container_name: player
+    image: devtouchblankspot/player
+    restart: always
+    ports:
+      - "80:80"
