@@ -79,11 +79,14 @@ public class YoutubeService {
     }
 
     public int storeDailyVideo(LocalDate executionDate) {
-        log.info("Storing videos for {}", executionDate);
-        List<YoutubeVideoDetail> videoDetails = buildVideoDetailsByChannel(executionDate);
-        log.info("Video Details {}", videoDetails);
-        repository.saveAll(videoDetails);
-        log.info("Stored video count {}", videoDetails.size());
+        List<YoutubeVideoDetail> videoDetails = repository.findByPublishDate(executionDate);
+        if(videoDetails.isEmpty()) {
+            log.info("Storing videos for {}", executionDate);
+            videoDetails = buildVideoDetailsByChannel(executionDate);
+            log.info("Video Details {}", videoDetails);
+            repository.saveAll(videoDetails);
+            log.info("Stored video count {}", videoDetails.size());
+        }
         return videoDetails.size();
     }
 

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 @RestController
@@ -23,6 +25,12 @@ public class YouTubeController {
     @GetMapping("/initialize")
     public ResponseEntity<List<PulledVideoResponse>> initializeVideos() {
         return ResponseEntity.ok(youtubeService.initializeDatabase());
+    }
+
+    @GetMapping("/pullLatest")
+    public ResponseEntity<String> PullLatestVideos() {
+        int videoCount = youtubeService.storeDailyVideo(LocalDate.now(ZoneId.of("Asia/Kolkata")).minusDays(1));
+        return ResponseEntity.ok(videoCount+" video updated.");
     }
 
     @GetMapping("/videoDetails")
