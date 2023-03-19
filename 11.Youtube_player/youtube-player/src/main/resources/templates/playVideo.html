@@ -6,10 +6,9 @@
 </head>
 <body>
 <span id="map" style="visibility: hidden" th:text="${jsonData}"></span>
-<h2 style="text-align: center;font-size: xxx-large;"><span id="startMessage"
-                                                           style="color: darkgreen; text-align: center;">Video play is in progress...</span>
+<h2 style="text-align: center;font-size: xxx-large;"><span id="startMessage" style="color: darkgreen; text-align: center;"></span>
 </h2>
-<h2 style="text-align: center;font-size: xxx-large;"><span id="finalMessage" style="color: red; text-align: center;">Video play Completed.</span>
+<h2 style="text-align: center;font-size: xxx-large;"><span id="finalMessage" style="color: red; text-align: center;"></span>
 </h2>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"
@@ -22,6 +21,9 @@
     const keyLength = keys.length;
     const w = window.innerWidth;
     const h = window.innerHeight;
+    const contentText = '[[${contentText}]]'
+    const delaySecond = parseInt([[${delaySecond}]])
+    const delayMs = delaySecond * 1000
     $('#finalMessage').hide();
     $(document).ready(async function () {
         for (let index = 0; index < keyLength; index++) {
@@ -34,14 +36,14 @@
             setTimeout(() => {
                 x.close();
             }, duration);
-            $('#startMessage').html("Playing <b><u>" + (index + 1) + "</u></b> out of <b><u>" + keyLength + "</u></b> Video");
-            $(document).prop('title', "Playing " + (index + 1) + " out of " + keyLength + " Video");
-            await delay(30000);
-            console.log("Waited 30s to play next video");
+            $('#startMessage').html("Playing <b><u>" + (index + 1) + "</u></b> out of <b><u>" + keyLength + "</u></b> "+contentText);
+            $(document).prop('title', "Playing " + (index + 1) + " out of " + keyLength + " "+contentText);
+            await delay(delayMs);
+            console.log("Waited "+delaySecond+"s to play next "+contentText);
         }
         $('#startMessage').hide();
-        $('#finalMessage').html("Total <b><u>" + keyLength + "</u></b> video played successfully.");
-        $(document).prop('title', "Total " + keyLength + " video played successfully.");
+        $('#finalMessage').html("Total <b><u>" + keyLength + "</u></b> "+ contentText +" played successfully.");
+        $(document).prop('title', "Total " + keyLength + " "+ contentText +" played successfully.");
         $('#finalMessage').show();
     });
 

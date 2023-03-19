@@ -28,7 +28,7 @@ public class YouTubeController {
     @GetMapping("/pullLatest")
     public ResponseEntity<String> PullLatestVideos() {
         int videoCount = youtubeService.PullLatestVideos();
-        return ResponseEntity.ok(videoCount+" video updated.");
+        return ResponseEntity.ok(videoCount + " video updated.");
     }
 
     @GetMapping("/videoDetails")

@@ -28,7 +28,7 @@
         </rollingPolicy>
     </appender>
 
-    <root level="info">
+    <root level="warn">
         <appender-ref ref="RollingFile" />
     </root>
 
