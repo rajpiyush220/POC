@@ -23,12 +23,10 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,8 +49,6 @@ public class YoutubeService {
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
 
     private final String WATCH_URL_FORMAT = "https://www.youtube.com/watch?v=%s";
-
-    private final Random random = new Random();
 
 
     public List<PulledVideoResponse> getVideoCountByPublishDate() {
@@ -78,15 +74,14 @@ public class YoutubeService {
         return getVideoCountByPublishDate();
     }
 
-    public int storeDailyVideo(LocalDate executionDate) {
-        List<YoutubeVideoDetail> videoDetails = repository.findByPublishDate(executionDate);
-        if(videoDetails.isEmpty()) {
-            log.info("Storing videos for {}", executionDate);
-            videoDetails = buildVideoDetailsByChannel(executionDate);
-            log.info("Video Details {}", videoDetails);
-            repository.saveAll(videoDetails);
-            log.info("Stored video count {}", videoDetails.size());
-        }
+    public int PullLatestVideos() {
+        LocalDate executionDate = repository.getMaxPublishDate().plusDays(1);
+        log.info("Storing videos for {}", executionDate);
+        List<YoutubeVideoDetail> videoDetails = buildVideoDetailsByChannel(executionDate);
+        log.info("Video Details {}", videoDetails);
+        repository.saveAll(videoDetails);
+        log.info("Stored video count {}", videoDetails.size());
+
         return videoDetails.size();
     }
 

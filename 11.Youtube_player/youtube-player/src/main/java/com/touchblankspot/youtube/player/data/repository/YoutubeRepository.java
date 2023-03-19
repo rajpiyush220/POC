@@ -22,4 +22,7 @@ public interface YoutubeRepository extends CrudRepository<YoutubeVideoDetail, UU
     List<YoutubeVideoDetail> findAll();
 
     List<YoutubeVideoDetail> findByPublishDate(LocalDate localDate);
+
+     @Query(value = "select max(publish_date) from video_details", nativeQuery = true)
+     LocalDate getMaxPublishDate();
 }

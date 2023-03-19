@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -23,10 +22,8 @@ public class ScheduleTask {
     @Scheduled(cron = "5 3 * * * *", zone = "Asia/Kolkata")
     public void storeDailyVideos() {
         log.info("Daily video storage job started at {}", LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
-        LocalDate executionDate = LocalDate.now(ZoneId.of("Asia/Kolkata")).minusDays(1);
-        log.info("Daily video storage job started for {}", executionDate);
-        int videoCount = youtubeService.storeDailyVideo(executionDate);
-        log.info("Daily video storage job completed for {} and updated {} video.", executionDate, videoCount);
+        int videoCount = youtubeService.PullLatestVideos();
+        log.info("Daily video storage job completed and updated {} video.", videoCount);
         log.info("Daily video storage job finished at {}", LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
     }
 }

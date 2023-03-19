@@ -17,6 +17,8 @@ public class VideoResponse {
     private PageInfo pageInfo;
     private List<Item> items;
 
+    private String nextPageToken;
+
 }
 
 
