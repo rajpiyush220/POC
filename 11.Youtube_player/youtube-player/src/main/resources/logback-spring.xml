@@ -29,11 +29,11 @@
     </appender>
 
     <root level="info">
-        <appender-ref ref="Console" />
+        <appender-ref ref="RollingFile" />
     </root>
 
     <logger name="org.hibernate" level="warn" additivity="false">
-        <appender-ref ref="Console" />
+        <appender-ref ref="RollingFile" />
     </logger>
 
     <logger name="com.touchblankspot.youtube.player" level="info" additivity="false">
