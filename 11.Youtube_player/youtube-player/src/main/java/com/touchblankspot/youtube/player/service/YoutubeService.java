@@ -75,13 +75,13 @@ public class YoutubeService {
     }
 
     public int PullLatestVideos() {
-        LocalDate executionDate = repository.getMaxPublishDate().plusDays(1);
+        LocalDate executionDate = repository.getMaxPublishDate().minusDays(1);
+        List<String> existingVideoIds = repository.findByPublishDateAfter(executionDate).stream().map(YoutubeVideoDetail::getVideoId).toList();
         log.info("Storing videos for {}", executionDate);
-        List<YoutubeVideoDetail> videoDetails = buildVideoDetailsByChannel(executionDate);
+        List<YoutubeVideoDetail> videoDetails = buildVideoDetailsByChannel(executionDate).stream().filter(video -> !existingVideoIds.contains(video.getVideoId())).toList();
         log.info("Video Details {}", videoDetails);
         repository.saveAll(videoDetails);
         log.info("Stored video count {}", videoDetails.size());
-
         return videoDetails.size();
     }
 

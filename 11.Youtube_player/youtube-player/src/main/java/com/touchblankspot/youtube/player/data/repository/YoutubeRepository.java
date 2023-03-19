@@ -4,6 +4,7 @@ import com.touchblankspot.youtube.player.data.model.YoutubeVideoDetail;
 import com.touchblankspot.youtube.player.web.type.PulledVideoResponse;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -21,7 +22,8 @@ public interface YoutubeRepository extends CrudRepository<YoutubeVideoDetail, UU
 
     List<YoutubeVideoDetail> findAll();
 
-    List<YoutubeVideoDetail> findByPublishDate(LocalDate localDate);
+    @Query(nativeQuery = true, value = "select * from video_details where publish_date >= :publishDate")
+    List<YoutubeVideoDetail> findByPublishDateAfter(@Param("publishDate") LocalDate publishDate);
 
      @Query(value = "select max(publish_date) from video_details", nativeQuery = true)
      LocalDate getMaxPublishDate();
