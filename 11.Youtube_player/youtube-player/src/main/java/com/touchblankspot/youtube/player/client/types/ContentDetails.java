@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"dimension", "definition", "caption", "licensedContent", "contentRating", "projection"})
+@JsonIgnoreProperties({"dimension", "definition", "caption", "licensedContent", "contentRating", "projection","regionRestriction"})
 public class ContentDetails {
     private String duration;
     private String dimension;
