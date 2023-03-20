@@ -41,7 +41,6 @@ public class PlayerController {
         model.addAttribute("jsonData", mapToJsonString(videoDetails));
         model.addAttribute("title", isShot ? "Playing Shorts" : "Playing Video");
         model.addAttribute("contentText", isShot ? "Shorts" : "Video");
-        model.addAttribute("delaySecond", isShot ? "30" : "90");
         return "playVideo";
     }
 

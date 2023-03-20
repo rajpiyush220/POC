@@ -22,8 +22,6 @@
     const w = window.innerWidth;
     const h = window.innerHeight;
     const contentText = '[[${contentText}]]'
-    const delaySecond = parseInt([[${delaySecond}]])
-    const delayMs = delaySecond * 1000
     $('#finalMessage').hide();
     $(document).ready(async function () {
         for (let index = 0; index < keyLength; index++) {
@@ -38,7 +36,8 @@
             }, duration);
             $('#startMessage').html("Playing <b><u>" + (index + 1) + "</u></b> out of <b><u>" + keyLength + "</u></b> "+contentText);
             $(document).prop('title', "Playing " + (index + 1) + " out of " + keyLength + " "+contentText);
-            await delay(delayMs);
+            const delaySecond = buildDelayTime(duration)
+            await delay(delaySecond * 1000);
             console.log("Waited "+delaySecond+"s to play next "+contentText);
         }
         $('#startMessage').hide();
@@ -49,6 +48,15 @@
 
     function randomYPosition() {
         return Math.floor(Math.random() * ((h - 10) - 10 + 1) + 10)
+    }
+
+    function buildDelayTime(duration){
+        const tempDuration = duration / 1000
+        if(tempDuration <= 60){
+            return 30;
+        }else{
+            return Math.min(120, (tempDuration/2))
+        }
     }
 
     function randomXPosition() {
