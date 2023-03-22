@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -50,13 +51,22 @@ public class YoutubeService {
 
     private final String WATCH_URL_FORMAT = "https://www.youtube.com/watch?v=%s";
 
+    /*private final String EMBEDDED_URL_FORMAT = "https://www.youtube.com/embed/%s?playsinline=1&enablejsapi=1&widgetid=1&muted=1&autoplay=1";*/
 
     public List<PulledVideoResponse> getVideoCountByPublishDate() {
         return repository.getVideoCountByPublishDate().stream().map(object -> new PulledVideoResponse(object[0].toString(), Integer.parseInt(object[1].toString()))).toList();
     }
 
-    public Map<String, String> getVideoPlayDetails(Boolean isShorts) {
-        return repository.findByIsShorts(isShorts).stream().collect(Collectors.toMap(video -> String.format(WATCH_URL_FORMAT, video.getVideoId()),
+    public List<YoutubeVideoDetail> findAll() {
+        return repository.findAll();
+    }
+
+    public Map<String, String> getVideoPlayDetails(Boolean isShorts, String videoId) {
+        List<YoutubeVideoDetail> videoDetails = repository.findByIsShorts(isShorts);
+        if (StringUtils.hasText(videoId)) {
+            videoDetails = videoDetails.stream().filter(video -> video.getVideoId().equals(videoId)).toList();
+        }
+        return videoDetails.stream().collect(Collectors.toMap(video -> String.format(WATCH_URL_FORMAT, video.getVideoId()),
                 video -> String.valueOf(addAdditionalTime(video.getDuration()))));
     }
 

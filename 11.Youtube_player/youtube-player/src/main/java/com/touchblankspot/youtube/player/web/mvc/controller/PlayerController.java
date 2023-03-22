@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
@@ -27,17 +28,17 @@ public class PlayerController {
     private final ObjectMapper objectMapper;
 
     @GetMapping("/shorts")
-    public String playShots(Model model) {
-        return playVideoOrShot(true, model);
+    public String playShots(@RequestParam(value = "videoId", defaultValue = "") String videoId, Model model) {
+        return playVideoOrShot(true, model, videoId);
     }
 
     @GetMapping("/videos")
-    public String playVideos(Model model) {
-        return playVideoOrShot(false, model);
+    public String playVideos(@RequestParam(value = "videoId", defaultValue = "") String videoId, Model model) {
+        return playVideoOrShot(false, model, videoId);
     }
 
-    private String playVideoOrShot(Boolean isShot, Model model) {
-        Map<String, String> videoDetails = youtubeService.getVideoPlayDetails(isShot);
+    private String playVideoOrShot(Boolean isShot, Model model, String videoId) {
+        Map<String, String> videoDetails = youtubeService.getVideoPlayDetails(isShot, videoId);
         model.addAttribute("jsonData", mapToJsonString(videoDetails));
         model.addAttribute("title", isShot ? "Playing Shorts" : "Playing Video");
         model.addAttribute("contentText", isShot ? "Shorts" : "Video");

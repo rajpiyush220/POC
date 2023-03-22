@@ -28,8 +28,8 @@
         </rollingPolicy>
     </appender>
 
-    <root level="warn">
-        <appender-ref ref="RollingFile" />
+    <root level="info">
+        <appender-ref ref="Console" />
     </root>
 
     <logger name="org.hibernate" level="warn" additivity="false">
