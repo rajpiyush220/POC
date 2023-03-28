@@ -27,6 +27,16 @@ public class PlayerController {
     @NonNull
     private final ObjectMapper objectMapper;
 
+
+    @GetMapping("/")
+    public String playAll(Model model) {
+        Map<String, String> videoDetails = youtubeService.getVideoDetails();
+        model.addAttribute("jsonData", mapToJsonString(videoDetails));
+        model.addAttribute("title", "Playing Mixed Video");
+        model.addAttribute("contentText", "Mixed");
+        return "playVideo";
+    }
+
     @GetMapping("/shorts")
     public String playShots(@RequestParam(value = "videoId", defaultValue = "") String videoId, Model model) {
         return playVideoOrShot(true, model, videoId);

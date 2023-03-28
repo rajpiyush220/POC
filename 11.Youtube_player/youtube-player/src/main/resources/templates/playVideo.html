@@ -29,8 +29,7 @@
             const duration = parseInt(jsonData[key]);
             let currentX = randomXPosition();
             let currentY = randomYPosition();
-            let x = window.open('https://www.youtube.com', '', (strWindowFeatures + ",left=" + currentX + ",top=" + currentY));
-            x.location.href = key;
+            let x = window.open(key, '', (strWindowFeatures + ",left=" + currentX + ",top=" + currentY));
             x.focus();
             setTimeout(() => {
                 x.close();
