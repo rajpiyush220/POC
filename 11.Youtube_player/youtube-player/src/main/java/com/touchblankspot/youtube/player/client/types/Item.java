@@ -8,8 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {
-    private String kind;
-    private String etag;
-    private Id id;
-    private Snippet snippet;
+
+	private String kind;
+
+	private String etag;
+
+	private Id id;
+
+	private Snippet snippet;
+
 }

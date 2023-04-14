@@ -10,12 +10,21 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Snippet {
-    private Date publishedAt;
-    private String channelId;
-    private String title;
-    private String description;
-    private Thumbnails thumbnails;
-    private String channelTitle;
-    private String liveBroadcastContent;
-    private Date publishTime;
+
+	private Date publishedAt;
+
+	private String channelId;
+
+	private String title;
+
+	private String description;
+
+	private Thumbnails thumbnails;
+
+	private String channelTitle;
+
+	private String liveBroadcastContent;
+
+	private Date publishTime;
+
 }

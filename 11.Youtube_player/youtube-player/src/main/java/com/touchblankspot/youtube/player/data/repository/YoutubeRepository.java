@@ -14,17 +14,18 @@ import java.util.UUID;
 @Repository
 public interface YoutubeRepository extends CrudRepository<YoutubeVideoDetail, UUID> {
 
-    @Query(nativeQuery = true,
-            value = "select publish_date as publishDate,count(*) as videoCount from video_details group by publish_date order by publish_date desc")
-    List<Object[]> getVideoCountByPublishDate();
+	@Query(nativeQuery = true,
+			value = "select publish_date as publishDate,count(*) as videoCount from video_details group by publish_date order by publish_date desc")
+	List<Object[]> getVideoCountByPublishDate();
 
-    List<YoutubeVideoDetail> findByIsShorts(Boolean isShorts);
+	List<YoutubeVideoDetail> findByIsShorts(Boolean isShorts);
 
-    List<YoutubeVideoDetail> findAll();
+	List<YoutubeVideoDetail> findAll();
 
-    @Query(nativeQuery = true, value = "select * from video_details where publish_date >= :publishDate")
-    List<YoutubeVideoDetail> findByPublishDateAfter(@Param("publishDate") LocalDate publishDate);
+	@Query(nativeQuery = true, value = "select * from video_details where publish_date >= :publishDate")
+	List<YoutubeVideoDetail> findByPublishDateAfter(@Param("publishDate") LocalDate publishDate);
 
-     @Query(value = "select max(publish_date) from video_details", nativeQuery = true)
-     LocalDate getMaxPublishDate();
+	@Query(value = "select max(publish_date) from video_details", nativeQuery = true)
+	LocalDate getMaxPublishDate();
+
 }

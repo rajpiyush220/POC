@@ -18,15 +18,18 @@ import java.util.UUID;
 @NoArgsConstructor
 @MappedSuperclass
 public class Immutable {
-  @Id private UUID id = UUID.randomUUID();
 
-  @Column(nullable = false, updatable = false)
-  @Version
-  @ReadOnlyProperty
-  private Long version;
+	@Id
+	private UUID id = UUID.randomUUID();
 
-  @Column(nullable = false, updatable = false)
-  @CreatedDate
-  @JsonIgnore
-  private OffsetDateTime created = OffsetDateTime.now().truncatedTo(ChronoUnit.MICROS);
+	@Column(nullable = false, updatable = false)
+	@Version
+	@ReadOnlyProperty
+	private Long version;
+
+	@Column(nullable = false, updatable = false)
+	@CreatedDate
+	@JsonIgnore
+	private OffsetDateTime created = OffsetDateTime.now().truncatedTo(ChronoUnit.MICROS);
+
 }

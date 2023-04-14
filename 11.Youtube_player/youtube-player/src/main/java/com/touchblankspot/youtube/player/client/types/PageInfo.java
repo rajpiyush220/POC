@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PageInfo {
-    private Integer totalResults;
-    private Integer resultsPerPage;
+
+	private Integer totalResults;
+
+	private Integer resultsPerPage;
+
 }

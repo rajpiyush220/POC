@@ -18,34 +18,34 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/youtube")
-@RequiredArgsConstructor(onConstructor = @__({@Autowired}))
+@RequiredArgsConstructor(onConstructor = @__({ @Autowired }))
 public class YouTubeController {
 
-    @NonNull
-    private final YoutubeService youtubeService;
+	@NonNull
+	private final YoutubeService youtubeService;
 
-    @NonNull
-    private final YoutubeVideoDetailMapper mapper;
+	@NonNull
+	private final YoutubeVideoDetailMapper mapper;
 
-    @GetMapping(value = "/initialize", produces = "application/json")
-    public ResponseEntity<List<PulledVideoResponse>> initializeVideos() {
-        return ResponseEntity.ok(youtubeService.initializeDatabase());
-    }
+	@GetMapping(value = "/initialize", produces = "application/json")
+	public ResponseEntity<List<PulledVideoResponse>> initializeVideos() {
+		return ResponseEntity.ok(youtubeService.initializeDatabase());
+	}
 
-    @GetMapping(value = "/pullLatest", produces = "application/json")
-    public ResponseEntity<String> PullLatestVideos() {
-        int videoCount = youtubeService.PullLatestVideos();
-        return ResponseEntity.ok(videoCount + " video updated.");
-    }
+	@GetMapping(value = "/pullLatest", produces = "application/json")
+	public ResponseEntity<String> PullLatestVideos() {
+		int videoCount = youtubeService.PullLatestVideos();
+		return ResponseEntity.ok(videoCount + " video updated.");
+	}
 
-    @GetMapping(value = "/videoCountByPublishDate", produces = "application/json")
-    public ResponseEntity<List<PulledVideoResponse>> videoDetails() {
-        return ResponseEntity.ok(youtubeService.getVideoCountByPublishDate());
-    }
+	@GetMapping(value = "/videoCountByPublishDate", produces = "application/json")
+	public ResponseEntity<List<PulledVideoResponse>> videoDetails() {
+		return ResponseEntity.ok(youtubeService.getVideoCountByPublishDate());
+	}
 
-    @GetMapping(value = "/getAll", produces = "application/json")
-    public ResponseEntity<List<YoutubeVideoDetailResponse>> getAll() {
-        return ResponseEntity.ok(youtubeService.findAll().stream().map(video -> mapper.toApi(video)).toList());
-    }
+	@GetMapping(value = "/getAll", produces = "application/json")
+	public ResponseEntity<List<YoutubeVideoDetailResponse>> getAll() {
+		return ResponseEntity.ok(youtubeService.findAll().stream().map(video -> mapper.toApi(video)).toList());
+	}
 
 }

@@ -17,51 +17,54 @@ import java.util.Map;
 
 @Controller
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__({@Autowired}))
+@RequiredArgsConstructor(onConstructor = @__({ @Autowired }))
 @RequestMapping("/play")
 public class PlayerController {
 
-    @NonNull
-    private final YoutubeService youtubeService;
+	@NonNull
+	private final YoutubeService youtubeService;
 
-    @NonNull
-    private final ObjectMapper objectMapper;
+	@NonNull
+	private final ObjectMapper objectMapper;
 
+	@GetMapping("/")
+	public String playAll(Model model) {
+		Map<String, String> videoDetails = youtubeService.getVideoDetails();
+		model.addAttribute("jsonData", mapToJsonString(videoDetails));
+		model.addAttribute("title", "Playing Mixed Video");
+		model.addAttribute("contentText", "Mixed");
+		return "playVideo";
+	}
 
-    @GetMapping("/")
-    public String playAll(Model model) {
-        Map<String, String> videoDetails = youtubeService.getVideoDetails();
-        model.addAttribute("jsonData", mapToJsonString(videoDetails));
-        model.addAttribute("title", "Playing Mixed Video");
-        model.addAttribute("contentText", "Mixed");
-        return "playVideo";
-    }
+	@GetMapping("/shorts")
+	public String playShots(@RequestParam(value = "videoId", defaultValue = "") String videoId,
+			@RequestParam(value = "playSequential", defaultValue = "0") Integer playSequential, Model model) {
+		return playVideoOrShot(true, model, videoId, playSequential);
+	}
 
-    @GetMapping("/shorts")
-    public String playShots(@RequestParam(value = "videoId", defaultValue = "") String videoId, Model model) {
-        return playVideoOrShot(true, model, videoId);
-    }
+	@GetMapping("/videos")
+	public String playVideos(@RequestParam(value = "videoId", defaultValue = "") String videoId,
+			@RequestParam(value = "playSequential", defaultValue = "0") Integer playSequential, Model model) {
+		return playVideoOrShot(false, model, videoId, playSequential);
+	}
 
-    @GetMapping("/videos")
-    public String playVideos(@RequestParam(value = "videoId", defaultValue = "") String videoId, Model model) {
-        return playVideoOrShot(false, model, videoId);
-    }
+	private String playVideoOrShot(Boolean isShot, Model model, String videoId, Integer playSequential) {
+		Map<String, String> videoDetails = youtubeService.getVideoPlayDetails(isShot, videoId);
+		model.addAttribute("jsonData", mapToJsonString(videoDetails));
+		model.addAttribute("title", isShot ? "Playing Shorts" : "Playing Video");
+		model.addAttribute("contentText", isShot ? "Shorts" : "Video");
+		model.addAttribute("playSequential", playSequential);
+		return "playVideo";
+	}
 
-    private String playVideoOrShot(Boolean isShot, Model model, String videoId) {
-        Map<String, String> videoDetails = youtubeService.getVideoPlayDetails(isShot, videoId);
-        model.addAttribute("jsonData", mapToJsonString(videoDetails));
-        model.addAttribute("title", isShot ? "Playing Shorts" : "Playing Video");
-        model.addAttribute("contentText", isShot ? "Shorts" : "Video");
-        return "playVideo";
-    }
-
-    private String mapToJsonString(Map<?, ?> map) {
-        try {
-            return objectMapper.writeValueAsString(map);
-        } catch (JsonProcessingException e) {
-            log.error("Unable to parse map to json");
-            return "";
-        }
-    }
+	private String mapToJsonString(Map<?, ?> map) {
+		try {
+			return objectMapper.writeValueAsString(map);
+		}
+		catch (JsonProcessingException e) {
+			log.error("Unable to parse map to json");
+			return "";
+		}
+	}
 
 }

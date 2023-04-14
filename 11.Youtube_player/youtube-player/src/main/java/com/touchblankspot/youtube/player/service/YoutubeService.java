@@ -32,121 +32,144 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__({@Autowired}))
+@RequiredArgsConstructor(onConstructor = @__({ @Autowired }))
 public class YoutubeService {
 
-    @NonNull
-    private final YoutubeRepository repository;
+	@NonNull
+	private final YoutubeRepository repository;
 
-    @NonNull
-    private final YouTubeVideoFeignClient videoFeignClient;
+	@NonNull
+	private final YouTubeVideoFeignClient videoFeignClient;
 
-    @NonNull
-    private final YoutubeProperties youtubeProperties;
+	@NonNull
+	private final YoutubeProperties youtubeProperties;
 
-    private final String VIDEO_FILTER = "youtube#video";
+	private final String VIDEO_FILTER = "youtube#video";
 
-    DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH);
 
-    private final String WATCH_URL_FORMAT = "https://www.youtube.com/watch?v=%s";
+	private final String WATCH_URL_FORMAT = "https://www.youtube.com/watch?v=%s";
 
-    /*private final String EMBEDDED_URL_FORMAT = "https://www.youtube.com/embed/%s?playsinline=1&enablejsapi=1&widgetid=1&muted=1&autoplay=1";*/
+	/*
+	 * private final String EMBEDDED_URL_FORMAT =
+	 * "https://www.youtube.com/embed/%s?playsinline=1&enablejsapi=1&widgetid=1&muted=1&autoplay=1";
+	 */
 
-    public List<PulledVideoResponse> getVideoCountByPublishDate() {
-        return repository.getVideoCountByPublishDate().stream().map(object -> new PulledVideoResponse(object[0].toString(), Integer.parseInt(object[1].toString()))).toList();
-    }
+	public List<PulledVideoResponse> getVideoCountByPublishDate() {
+		return repository.getVideoCountByPublishDate()
+			.stream()
+			.map(object -> new PulledVideoResponse(object[0].toString(), Integer.parseInt(object[1].toString())))
+			.toList();
+	}
 
-    public List<YoutubeVideoDetail> findAll() {
-        return repository.findAll();
-    }
+	public List<YoutubeVideoDetail> findAll() {
+		return repository.findAll();
+	}
 
-    public Map<String, String> getVideoPlayDetails(Boolean isShorts, String videoId) {
-        List<YoutubeVideoDetail> videoDetails = repository.findByIsShorts(isShorts);
-        if (StringUtils.hasText(videoId)) {
-            videoDetails = videoDetails.stream().filter(video -> video.getVideoId().equals(videoId)).toList();
-        }
-        return videoDetails.stream().collect(Collectors.toMap(video -> String.format(WATCH_URL_FORMAT, video.getVideoId()),
-                video -> String.valueOf(addAdditionalTime(video.getDuration()))));
-    }
+	public Map<String, String> getVideoPlayDetails(Boolean isShorts, String videoId) {
+		List<YoutubeVideoDetail> videoDetails = repository.findByIsShorts(isShorts);
+		if (StringUtils.hasText(videoId)) {
+			videoDetails = videoDetails.stream().filter(video -> video.getVideoId().equals(videoId)).toList();
+		}
+		return videoDetails.stream()
+			.collect(Collectors.toMap(video -> String.format(WATCH_URL_FORMAT, video.getVideoId()),
+					video -> String.valueOf(addAdditionalTime(video.getDuration()))));
+	}
 
-    public Map<String, String> getVideoDetails() {
-        return repository.findAll().stream().collect(Collectors.toMap(video -> String.format(WATCH_URL_FORMAT, video.getVideoId()),
-                video -> String.valueOf(addAdditionalTime(video.getDuration()))));
-    }
+	public Map<String, String> getVideoDetails() {
+		return repository.findAll()
+			.stream()
+			.collect(Collectors.toMap(video -> String.format(WATCH_URL_FORMAT, video.getVideoId()),
+					video -> String.valueOf(addAdditionalTime(video.getDuration()))));
+	}
 
-    public List<PulledVideoResponse> initializeDatabase() {
-        List<YoutubeVideoDetail> videoDetails =
-                buildVideoDetailsByChannel(null);
-        log.info("Video Details {}", videoDetails);
-        repository.saveAll(videoDetails);
-        log.info("Database initialized successfully.");
-        return getVideoCountByPublishDate();
-    }
+	public List<PulledVideoResponse> initializeDatabase() {
+		List<YoutubeVideoDetail> videoDetails = buildVideoDetailsByChannel(null);
+		log.info("Video Details {}", videoDetails);
+		repository.saveAll(videoDetails);
+		log.info("Database initialized successfully.");
+		return getVideoCountByPublishDate();
+	}
 
-    public int PullLatestVideos() {
-        LocalDate executionDate = repository.getMaxPublishDate().minusDays(1);
-        List<String> existingVideoIds = repository.findByPublishDateAfter(executionDate).stream().map(YoutubeVideoDetail::getVideoId).toList();
-        log.info("Storing videos for {}", executionDate);
-        List<YoutubeVideoDetail> videoDetails = buildVideoDetailsByChannel(executionDate).stream().filter(video -> !existingVideoIds.contains(video.getVideoId())).toList();
-        log.info("Video Details {}", videoDetails);
-        repository.saveAll(videoDetails);
-        log.info("Stored video count {}", videoDetails.size());
-        return videoDetails.size();
-    }
+	public int PullLatestVideos() {
+		LocalDate executionDate = repository.getMaxPublishDate().minusDays(1);
+		List<String> existingVideoIds = repository.findByPublishDateAfter(executionDate)
+			.stream()
+			.map(YoutubeVideoDetail::getVideoId)
+			.toList();
+		log.info("Storing videos for {}", executionDate);
+		List<YoutubeVideoDetail> videoDetails = buildVideoDetailsByChannel(executionDate).stream()
+			.filter(video -> !existingVideoIds.contains(video.getVideoId()))
+			.toList();
+		log.info("Video Details {}", videoDetails);
+		repository.saveAll(videoDetails);
+		log.info("Stored video count {}", videoDetails.size());
+		return videoDetails.size();
+	}
 
-    private List<YoutubeVideoDetail> buildVideoDetailsByChannel(LocalDate executionDate) {
-        return youtubeProperties.getChannels().keySet().stream().map(key -> buildVideoDetails(key, executionDate)).flatMap(List::stream).toList();
-    }
+	private List<YoutubeVideoDetail> buildVideoDetailsByChannel(LocalDate executionDate) {
+		return youtubeProperties.getChannels()
+			.keySet()
+			.stream()
+			.map(key -> buildVideoDetails(key, executionDate))
+			.flatMap(List::stream)
+			.toList();
+	}
 
-    private List<YoutubeVideoDetail> buildVideoDetails(String key, LocalDate searchAfter) {
-        YoutubeProperties.Api api = youtubeProperties.getApi();
-        YoutubeProperties.Channel channel = youtubeProperties.getChannels().get(key);
-        VideoResponse videoResponse = getYouTubeVideos(channel.getKey(), channel.getChannelId(), api.getPart(), api.getOrder(), api.getType(),
-                api.getMaxResults(), searchAfter);
-        String apiKey = channel.getKey();
-        String contentPart = youtubeProperties.getApi().getDurationPart();
-        String channelId = channel.getChannelId();
-        String channelName = channel.getName();
-        return videoResponse.getItems().stream().map(Item::getId).filter(id -> id.getKind().equals(VIDEO_FILTER))
-                .map(responseId -> {
-                    String videoId = responseId.getVideoId();
-                    long duration = 0L;
-                    LocalDate publishDate = LocalDate.now();
-                    boolean isShorts = false;
-                    String embeddedUrl = "";
-                    VideoDurationResponse durationResponse = videoFeignClient.getVideoDuration(videoId, apiKey, contentPart);
-                    Optional<DurationItem> optionalDurationItem = durationResponse.getItems().stream().findFirst();
-                    if (optionalDurationItem.isPresent()) {
-                        DurationItem item = optionalDurationItem.get();
-                        duration = parseDuration(item.getContentDetails().getDuration());
-                        isShorts = (duration <= 60L);
-                        embeddedUrl = item.getPlayer().getEmbedHtml();
-                        Date date = item.getSnippet().getPublishedAt();
-                        publishDate = Instant.ofEpochMilli(date.getTime())
-                                .atZone(ZoneId.systemDefault())
-                                .toLocalDate();
-                    }
-                    return new YoutubeVideoDetail(channelId, channelName, videoId, duration, publishDate, isShorts, embeddedUrl);
-                }).toList();
-    }
+	private List<YoutubeVideoDetail> buildVideoDetails(String key, LocalDate searchAfter) {
+		YoutubeProperties.Api api = youtubeProperties.getApi();
+		YoutubeProperties.Channel channel = youtubeProperties.getChannels().get(key);
+		VideoResponse videoResponse = getYouTubeVideos(channel.getKey(), channel.getChannelId(), api.getPart(),
+				api.getOrder(), api.getType(), api.getMaxResults(), searchAfter);
+		String apiKey = channel.getKey();
+		String contentPart = youtubeProperties.getApi().getDurationPart();
+		String channelId = channel.getChannelId();
+		String channelName = channel.getName();
+		return videoResponse.getItems()
+			.stream()
+			.map(Item::getId)
+			.filter(id -> id.getKind().equals(VIDEO_FILTER))
+			.map(responseId -> {
+				String videoId = responseId.getVideoId();
+				long duration = 0L;
+				LocalDate publishDate = LocalDate.now();
+				boolean isShorts = false;
+				String embeddedUrl = "";
+				VideoDurationResponse durationResponse = videoFeignClient.getVideoDuration(videoId, apiKey,
+						contentPart);
+				Optional<DurationItem> optionalDurationItem = durationResponse.getItems().stream().findFirst();
+				if (optionalDurationItem.isPresent()) {
+					DurationItem item = optionalDurationItem.get();
+					duration = parseDuration(item.getContentDetails().getDuration());
+					isShorts = (duration <= 60L);
+					embeddedUrl = item.getPlayer().getEmbedHtml();
+					Date date = item.getSnippet().getPublishedAt();
+					publishDate = Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+				}
+				return new YoutubeVideoDetail(channelId, channelName, videoId, duration, publishDate, isShorts,
+						embeddedUrl);
+			})
+			.toList();
+	}
 
-    private VideoResponse getYouTubeVideos(String key, String channelId, String part, String order, String type, Integer maxResults, LocalDate publishedAfter) {
-        return publishedAfter == null ?
-                videoFeignClient.search(key, channelId, part, order, type, maxResults) :
-                videoFeignClient.searchAfterDate(key, channelId, part, LocalDateTime.of(publishedAfter, LocalTime.MIDNIGHT).format(formatter), type);
-    }
+	private VideoResponse getYouTubeVideos(String key, String channelId, String part, String order, String type,
+			Integer maxResults, LocalDate publishedAfter) {
+		return publishedAfter == null ? videoFeignClient.search(key, channelId, part, order, type, maxResults)
+				: videoFeignClient.searchAfterDate(key, channelId, part,
+						LocalDateTime.of(publishedAfter, LocalTime.MIDNIGHT).format(formatter), type);
+	}
 
-    private long parseDuration(String durationString) {
-        long duration = 0L;
-        if (durationString.length() > 0) {
-            Duration d = Duration.parse(durationString);
-            duration = d.get(java.time.temporal.ChronoUnit.SECONDS);
-        }
-        return duration;
-    }
+	private long parseDuration(String durationString) {
+		long duration = 0L;
+		if (durationString.length() > 0) {
+			Duration d = Duration.parse(durationString);
+			duration = d.get(java.time.temporal.ChronoUnit.SECONDS);
+		}
+		return duration;
+	}
 
-    private long addAdditionalTime(long videoDuration) {
-        return (videoDuration + (videoDuration < 100 ? videoDuration : 120)) * 1000;
-    }
+	private long addAdditionalTime(long videoDuration) {
+		return (videoDuration + (videoDuration < 100 ? videoDuration : 120)) * 1000;
+	}
+
 }

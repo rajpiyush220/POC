@@ -13,17 +13,18 @@ import java.time.ZoneId;
 
 @Component
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__({@Autowired}))
+@RequiredArgsConstructor(onConstructor = @__({ @Autowired }))
 public class ScheduleTask {
 
-    @NonNull
-    private final YoutubeService youtubeService;
+	@NonNull
+	private final YoutubeService youtubeService;
 
-    @Scheduled(cron = "5 3 * * * *", zone = "Asia/Kolkata")
-    public void storeDailyVideos() {
-        log.info("Daily video storage job started at {}", LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
-        int videoCount = youtubeService.PullLatestVideos();
-        log.info("Daily video storage job completed and updated {} video.", videoCount);
-        log.info("Daily video storage job finished at {}", LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
-    }
+	@Scheduled(cron = "10 * * * * *")
+	public void storeDailyVideos() {
+		log.info("Daily video storage job started at {}", LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
+		int videoCount = youtubeService.PullLatestVideos();
+		log.info("Daily video storage job completed and updated {} video.", videoCount);
+		log.info("Daily video storage job finished at {}", LocalDateTime.now(ZoneId.of("Asia/Kolkata")));
+	}
+
 }

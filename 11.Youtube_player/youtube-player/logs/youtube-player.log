@@ -1,0 +1,85 @@
+2023-04-14 09:19:01,436 INFO o.s.b.StartupInfoLogger [restartedMain] Starting YoutubePlayerApplication using Java 17.0.2 with PID 920 (F:\TouchBlankspot\POC\11.Youtube_player\youtube-player\build\classes\java\main started by mailt in F:\TouchBlankspot\POC\11.Youtube_player\youtube-player)
+2023-04-14 09:19:01,452 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2023-04-14 09:19:32,400 INFO o.s.b.StartupInfoLogger [restartedMain] Started YoutubePlayerApplication in 33.614 seconds (process running for 36.979)
+2023-04-14 09:20:10,007 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:20:10.007596900
+2023-04-14 09:20:10,506 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-03-26
+2023-04-14 09:21:10,007 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:21:10.007265
+2023-04-14 09:21:10,042 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-03-26
+2023-04-14 09:22:18,540 INFO o.s.b.StartupInfoLogger [restartedMain] Starting YoutubePlayerApplication using Java 17.0.2 with PID 10764 (F:\TouchBlankspot\POC\11.Youtube_player\youtube-player\build\classes\java\main started by mailt in F:\TouchBlankspot\POC\11.Youtube_player\youtube-player)
+2023-04-14 09:22:18,544 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2023-04-14 09:22:42,662 INFO o.s.b.StartupInfoLogger [restartedMain] Started YoutubePlayerApplication in 25.236 seconds (process running for 26.209)
+2023-04-14 09:23:10,011 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:23:10.011520400
+2023-04-14 09:23:10,536 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-03-26
+2023-04-14 09:23:14,126 INFO c.t.y.p.s.YoutubeService [scheduling-1] Video Details [Versioned(version=null, created=2023-04-14T09:23:12.060477+05:30, updated=2023-04-14T09:23:12.060477+05:30), Versioned(version=null, created=2023-04-14T09:23:12.233437+05:30, updated=2023-04-14T09:23:12.233437+05:30), Versioned(version=null, created=2023-04-14T09:23:12.418499+05:30, updated=2023-04-14T09:23:12.418499+05:30), Versioned(version=null, created=2023-04-14T09:23:12.608342+05:30, updated=2023-04-14T09:23:12.608342+05:30), Versioned(version=null, created=2023-04-14T09:23:12.778660+05:30, updated=2023-04-14T09:23:12.778660+05:30), Versioned(version=null, created=2023-04-14T09:23:13.345043+05:30, updated=2023-04-14T09:23:13.345043+05:30), Versioned(version=null, created=2023-04-14T09:23:13.730276+05:30, updated=2023-04-14T09:23:13.730276+05:30), Versioned(version=null, created=2023-04-14T09:23:13.931564+05:30, updated=2023-04-14T09:23:13.931564+05:30), Versioned(version=null, created=2023-04-14T09:23:14.126248+05:30, updated=2023-04-14T09:23:14.126248+05:30)]
+2023-04-14 09:23:14,524 INFO c.t.y.p.s.YoutubeService [scheduling-1] Stored video count 9
+2023-04-14 09:23:14,525 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job completed and updated 9 video.
+2023-04-14 09:23:14,525 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job finished at 2023-04-14T09:23:14.525962
+2023-04-14 09:24:10,009 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:24:10.009005600
+2023-04-14 09:24:10,032 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-04-11
+2023-04-14 09:24:11,127 INFO c.t.y.p.s.YoutubeService [scheduling-1] Video Details []
+2023-04-14 09:24:11,138 INFO c.t.y.p.s.YoutubeService [scheduling-1] Stored video count 0
+2023-04-14 09:24:11,139 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job completed and updated 0 video.
+2023-04-14 09:24:11,140 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job finished at 2023-04-14T09:24:11.140057800
+2023-04-14 09:25:10,006 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:25:10.006037100
+2023-04-14 09:25:10,019 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-04-11
+2023-04-14 09:25:10,940 INFO c.t.y.p.s.YoutubeService [scheduling-1] Video Details []
+2023-04-14 09:25:10,948 INFO c.t.y.p.s.YoutubeService [scheduling-1] Stored video count 0
+2023-04-14 09:25:10,948 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job completed and updated 0 video.
+2023-04-14 09:25:10,948 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job finished at 2023-04-14T09:25:10.948943900
+2023-04-14 09:26:11,916 INFO o.s.b.StartupInfoLogger [restartedMain] Starting YoutubePlayerApplication using Java 17.0.2 with PID 1748 (F:\TouchBlankspot\POC\11.Youtube_player\youtube-player\build\classes\java\main started by mailt in F:\TouchBlankspot\POC\11.Youtube_player\youtube-player)
+2023-04-14 09:26:11,921 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2023-04-14 09:26:32,159 INFO o.s.b.StartupInfoLogger [restartedMain] Started YoutubePlayerApplication in 22.314 seconds (process running for 24.708)
+2023-04-14 09:27:10,008 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:27:10.008022600
+2023-04-14 09:27:10,973 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-04-11
+2023-04-14 09:27:12,864 INFO c.t.y.p.s.YoutubeService [scheduling-1] Video Details []
+2023-04-14 09:27:12,947 INFO c.t.y.p.s.YoutubeService [scheduling-1] Stored video count 0
+2023-04-14 09:27:12,948 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job completed and updated 0 video.
+2023-04-14 09:27:12,949 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job finished at 2023-04-14T09:27:12.948623300
+2023-04-14 09:28:10,001 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:28:10.001372900
+2023-04-14 09:28:10,015 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-04-11
+2023-04-14 09:28:11,150 INFO c.t.y.p.s.YoutubeService [scheduling-1] Video Details []
+2023-04-14 09:28:11,158 INFO c.t.y.p.s.YoutubeService [scheduling-1] Stored video count 0
+2023-04-14 09:28:11,159 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job completed and updated 0 video.
+2023-04-14 09:28:11,159 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job finished at 2023-04-14T09:28:11.159565900
+2023-04-14 09:29:10,011 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:29:10.011471800
+2023-04-14 09:29:10,065 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-04-11
+2023-04-14 09:29:11,038 INFO c.t.y.p.s.YoutubeService [scheduling-1] Video Details []
+2023-04-14 09:29:11,047 INFO c.t.y.p.s.YoutubeService [scheduling-1] Stored video count 0
+2023-04-14 09:29:11,048 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job completed and updated 0 video.
+2023-04-14 09:29:11,049 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job finished at 2023-04-14T09:29:11.049063300
+2023-04-14 09:30:10,007 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:30:10.007667100
+2023-04-14 09:30:10,021 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-04-11
+2023-04-14 09:30:10,960 INFO c.t.y.p.s.YoutubeService [scheduling-1] Video Details []
+2023-04-14 09:30:10,983 INFO c.t.y.p.s.YoutubeService [scheduling-1] Stored video count 0
+2023-04-14 09:30:10,983 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job completed and updated 0 video.
+2023-04-14 09:30:10,983 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job finished at 2023-04-14T09:30:10.983566100
+2023-04-14 09:31:10,014 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:31:10.014683400
+2023-04-14 09:31:10,037 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-04-11
+2023-04-14 09:31:11,074 INFO c.t.y.p.s.YoutubeService [scheduling-1] Video Details []
+2023-04-14 09:31:11,085 INFO c.t.y.p.s.YoutubeService [scheduling-1] Stored video count 0
+2023-04-14 09:31:11,086 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job completed and updated 0 video.
+2023-04-14 09:31:11,086 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job finished at 2023-04-14T09:31:11.086634800
+2023-04-14 09:32:10,005 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:32:10.005383500
+2023-04-14 09:32:10,017 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-04-11
+2023-04-14 09:32:11,076 INFO c.t.y.p.s.YoutubeService [scheduling-1] Video Details []
+2023-04-14 09:32:11,092 INFO c.t.y.p.s.YoutubeService [scheduling-1] Stored video count 0
+2023-04-14 09:32:11,092 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job completed and updated 0 video.
+2023-04-14 09:32:11,092 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job finished at 2023-04-14T09:32:11.092719400
+2023-04-14 09:33:10,006 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:33:10.006128600
+2023-04-14 09:33:10,018 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-04-11
+2023-04-14 09:33:11,031 INFO c.t.y.p.s.YoutubeService [scheduling-1] Video Details []
+2023-04-14 09:33:11,038 INFO c.t.y.p.s.YoutubeService [scheduling-1] Stored video count 0
+2023-04-14 09:33:11,038 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job completed and updated 0 video.
+2023-04-14 09:33:11,039 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job finished at 2023-04-14T09:33:11.039324200
+2023-04-14 09:34:10,008 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:34:10.008742500
+2023-04-14 09:34:10,034 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-04-11
+2023-04-14 09:34:10,964 INFO c.t.y.p.s.YoutubeService [scheduling-1] Video Details []
+2023-04-14 09:34:10,975 INFO c.t.y.p.s.YoutubeService [scheduling-1] Stored video count 0
+2023-04-14 09:34:10,976 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job completed and updated 0 video.
+2023-04-14 09:34:10,976 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job finished at 2023-04-14T09:34:10.976949700
+2023-04-14 09:35:10,010 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job started at 2023-04-14T09:35:10.010778400
+2023-04-14 09:35:10,031 INFO c.t.y.p.s.YoutubeService [scheduling-1] Storing videos for 2023-04-11
+2023-04-14 09:35:10,998 INFO c.t.y.p.s.YoutubeService [scheduling-1] Video Details []
+2023-04-14 09:35:11,010 INFO c.t.y.p.s.YoutubeService [scheduling-1] Stored video count 0
+2023-04-14 09:35:11,011 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job completed and updated 0 video.
+2023-04-14 09:35:11,011 INFO c.t.y.p.b.ScheduleTask [scheduling-1] Daily video storage job finished at 2023-04-14T09:35:11.011519500

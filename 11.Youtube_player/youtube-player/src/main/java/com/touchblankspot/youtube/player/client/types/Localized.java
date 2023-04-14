@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Localized {
-    private String title;
-    private String description;
+
+	private String title;
+
+	private String description;
+
 }

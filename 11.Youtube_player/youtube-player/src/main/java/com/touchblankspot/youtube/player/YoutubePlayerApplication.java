@@ -14,8 +14,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableScheduling
 public class YoutubePlayerApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(YoutubePlayerApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(YoutubePlayerApplication.class, args);
+	}
 
 }

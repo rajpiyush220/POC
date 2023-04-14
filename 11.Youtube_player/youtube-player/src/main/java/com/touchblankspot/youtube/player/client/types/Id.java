@@ -8,8 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Id {
-    private String kind;
-    private String videoId;
-    private String playlistId;
-    private String channelId;
+
+	private String kind;
+
+	private String videoId;
+
+	private String playlistId;
+
+	private String channelId;
+
 }

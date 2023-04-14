@@ -14,5 +14,7 @@ import java.util.UUID;
 @Setter
 public class Mutable extends Versioned {
 
-  @Id private UUID id = UUID.randomUUID();
+	@Id
+	private UUID id = UUID.randomUUID();
+
 }

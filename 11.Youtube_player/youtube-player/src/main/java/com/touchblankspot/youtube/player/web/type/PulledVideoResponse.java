@@ -8,9 +8,10 @@ import java.time.LocalDate;
 @Data
 public class PulledVideoResponse {
 
-    @NonNull
-    private String publishDate;
+	@NonNull
+	private String publishDate;
 
-    @NonNull
-    private Integer videoCount;
+	@NonNull
+	private Integer videoCount;
+
 }

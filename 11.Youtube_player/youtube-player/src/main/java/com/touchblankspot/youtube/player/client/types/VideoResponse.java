@@ -11,14 +11,16 @@ import java.util.List;
 @NoArgsConstructor
 public class VideoResponse {
 
-    private String kind;
-    private String etag;
-    private String regionCode;
-    private PageInfo pageInfo;
-    private List<Item> items;
+	private String kind;
 
-    private String nextPageToken;
+	private String etag;
+
+	private String regionCode;
+
+	private PageInfo pageInfo;
+
+	private List<Item> items;
+
+	private String nextPageToken;
 
 }
-
-

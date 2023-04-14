@@ -13,30 +13,36 @@ import java.util.Map;
 @Setter
 public class YoutubeProperties {
 
-    private Api api;
-    private Map<String, Channel> channels;
+	private Api api;
 
-    @Getter
-    @Setter
-    public static class Api {
-        private String part;
+	private Map<String, Channel> channels;
 
-        private String order;
+	@Getter
+	@Setter
+	public static class Api {
 
-        private String type;
+		private String part;
 
-        private String durationPart;
+		private String order;
 
-        private Integer maxResults;
-    }
+		private String type;
 
-    @Getter
-    @Setter
-    public static class Channel {
-        private String key;
+		private String durationPart;
 
-        private String channelId;
+		private Integer maxResults;
 
-        private String name;
-    }
+	}
+
+	@Getter
+	@Setter
+	public static class Channel {
+
+		private String key;
+
+		private String channelId;
+
+		private String name;
+
+	}
+
 }

@@ -22,6 +22,7 @@
     const w = window.innerWidth;
     const h = window.innerHeight;
     const contentText = '[[${contentText}]]'
+    const playSequential = parseInt(`[[${playSequential}]]`)
     $('#finalMessage').hide();
     $(document).ready(async function () {
         for (let index = 0; index < keyLength; index++) {
@@ -32,11 +33,12 @@
             let x = window.open(key, '', (strWindowFeatures + ",left=" + currentX + ",top=" + currentY));
             x.focus();
             setTimeout(() => {
+                console.log("Closing existing window.")
                 x.close();
             }, duration);
             $('#startMessage').html("Playing <b><u>" + (index + 1) + "</u></b> out of <b><u>" + keyLength + "</u></b> "+contentText);
             $(document).prop('title', "Playing " + (index + 1) + " out of " + keyLength + " "+contentText);
-            const delaySecond = buildDelayTime(duration)
+            const delaySecond = buildDelayTime(duration,playSequential)
             await delay(delaySecond * 1000);
             console.log("Waited "+delaySecond+"s to play next "+contentText);
         }
@@ -50,12 +52,16 @@
         return Math.floor(Math.random() * ((h - 10) - 10 + 1) + 10)
     }
 
-    function buildDelayTime(duration){
-        const tempDuration = duration / 1000
-        if(tempDuration <= 60){
-            return 30;
+    function buildDelayTime(duration,playSequential){
+        if(playSequential > 0){
+            return duration / 1000
         }else{
-            return Math.min(120, (tempDuration/2))
+            const tempDuration = duration / 1000
+            if(tempDuration <= 60){
+                return 30;
+            }else{
+                return Math.min(120, (tempDuration/2))
+            }
         }
     }
 

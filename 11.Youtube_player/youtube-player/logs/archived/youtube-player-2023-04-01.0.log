@@ -1,0 +1,2 @@
+2023-04-01 07:41:34,763 INFO o.s.b.StartupInfoLogger [restartedMain] Starting YoutubePlayerApplication using Java 17.0.2 with PID 22516 (F:\TouchBlankspot\POC\11.Youtube_player\youtube-player\build\classes\java\main started by mailt in F:\TouchBlankspot\POC\11.Youtube_player\youtube-player)
+2023-04-01 07:41:34,791 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"

@@ -10,15 +10,25 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"thumbnails", "categoryId", "liveBroadcastContent", "localized", "description"})
+@JsonIgnoreProperties({ "thumbnails", "categoryId", "liveBroadcastContent", "localized", "description","defaultAudioLanguage" })
 public class DurationSnippet {
-    private Date publishedAt;
-    private String channelId;
-    private String title;
-    private String description;
-    private Thumbnails thumbnails;
-    private String channelTitle;
-    private String categoryId;
-    private String liveBroadcastContent;
-    private Localized localized;
+
+	private Date publishedAt;
+
+	private String channelId;
+
+	private String title;
+
+	private String description;
+
+	private Thumbnails thumbnails;
+
+	private String channelTitle;
+
+	private String categoryId;
+
+	private String liveBroadcastContent;
+
+	private Localized localized;
+
 }

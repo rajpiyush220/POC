@@ -8,7 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Default {
-    private String url;
-    private int width;
-    private int height;
+
+	private String url;
+
+	private int width;
+
+	private int height;
+
 }

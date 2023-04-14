@@ -16,33 +16,34 @@ import java.time.LocalDate;
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class YoutubeVideoDetail  extends Mutable {
+public class YoutubeVideoDetail extends Mutable {
 
-    @NonNull
-    @Column(name = "channel_id")
-    private String channelId;
+	@NonNull
+	@Column(name = "channel_id")
+	private String channelId;
 
-    @NonNull
-    @Column(name = "channel_name")
-    private String channelName;
+	@NonNull
+	@Column(name = "channel_name")
+	private String channelName;
 
-    @NonNull
-    @Column(name = "video_id")
-    private String videoId;
+	@NonNull
+	@Column(name = "video_id")
+	private String videoId;
 
-    @NonNull
-    @Column(name = "duration")
-    private Long duration;
+	@NonNull
+	@Column(name = "duration")
+	private Long duration;
 
-    @NonNull
-    @Column(name = "publish_date")
-    private LocalDate publishDate;
+	@NonNull
+	@Column(name = "publish_date")
+	private LocalDate publishDate;
 
-    @NonNull
-    @Column(name = "is_shorts")
-    private Boolean isShorts;
+	@NonNull
+	@Column(name = "is_shorts")
+	private Boolean isShorts;
 
-    @NonNull
-    @Column(name = "embedded_url")
-    private String embeddedUrl;
+	@NonNull
+	@Column(name = "embedded_url")
+	private String embeddedUrl;
+
 }

@@ -7,29 +7,30 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
-@JsonPropertyOrder({"channelId","channelName","videoId","duration","publishDate","isShorts","embeddedUrl"})
+@JsonPropertyOrder({ "channelId", "channelName", "videoId", "duration", "publishDate", "isShorts", "embeddedUrl" })
 @Data
 @Builder
 public class YoutubeVideoDetailResponse {
 
-    @JsonProperty("channelId")
-    private String channelId;
+	@JsonProperty("channelId")
+	private String channelId;
 
-    @JsonProperty("channelName")
-    private String channelName;
+	@JsonProperty("channelName")
+	private String channelName;
 
-    @JsonProperty("videoId")
-    private String videoId;
+	@JsonProperty("videoId")
+	private String videoId;
 
-    @JsonProperty("duration")
-    private Long duration;
+	@JsonProperty("duration")
+	private Long duration;
 
-    @JsonProperty("publishDate")
-    private String publishDate;
+	@JsonProperty("publishDate")
+	private String publishDate;
 
-    @JsonProperty("isShorts")
-    private Boolean isShorts;
+	@JsonProperty("isShorts")
+	private Boolean isShorts;
 
-    @JsonProperty("embeddedUrl")
-    private String embeddedUrl;
+	@JsonProperty("embeddedUrl")
+	private String embeddedUrl;
+
 }

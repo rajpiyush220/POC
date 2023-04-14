@@ -9,12 +9,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Thumbnails {
-    @JsonProperty("default")
-    private Default mydefault;
 
-    @JsonProperty("medium")
-    private Default medium;
+	@JsonProperty("default")
+	private Default mydefault;
 
-    @JsonProperty("high")
-    private Default high;
+	@JsonProperty("medium")
+	private Default medium;
+
+	@JsonProperty("high")
+	private Default high;
+
 }

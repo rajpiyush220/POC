@@ -16,24 +16,27 @@ import java.time.temporal.ChronoUnit;
 @MappedSuperclass
 public class Versioned {
 
-  @Version @ReadOnlyProperty private Long version;
+	@Version
+	@ReadOnlyProperty
+	private Long version;
 
-  private OffsetDateTime created = OffsetDateTime.now().truncatedTo(ChronoUnit.MICROS);
+	private OffsetDateTime created = OffsetDateTime.now().truncatedTo(ChronoUnit.MICROS);
 
-  private OffsetDateTime updated = created;
+	private OffsetDateTime updated = created;
 
-  @PrePersist
-  public void onPrePersist() {
-    setUpdated(getCreated());
-  }
+	@PrePersist
+	public void onPrePersist() {
+		setUpdated(getCreated());
+	}
 
-  @PreUpdate
-  public void onPreUpdate() {
-    setUpdated(OffsetDateTime.now().truncatedTo(ChronoUnit.MICROS));
-  }
+	@PreUpdate
+	public void onPreUpdate() {
+		setUpdated(OffsetDateTime.now().truncatedTo(ChronoUnit.MICROS));
+	}
 
-  public void resetCreated() {
-    setCreated(OffsetDateTime.now().truncatedTo(ChronoUnit.MICROS));
-    setUpdated(getCreated());
-  }
+	public void resetCreated() {
+		setCreated(OffsetDateTime.now().truncatedTo(ChronoUnit.MICROS));
+		setUpdated(getCreated());
+	}
+
 }

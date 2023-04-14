@@ -11,9 +11,12 @@ import java.util.List;
 @NoArgsConstructor
 public class VideoDurationResponse {
 
-    private String kind;
-    private String etag;
-    private List<DurationItem> items;
+	private String kind;
 
-    private PageInfo pageInfo;
+	private String etag;
+
+	private List<DurationItem> items;
+
+	private PageInfo pageInfo;
+
 }
