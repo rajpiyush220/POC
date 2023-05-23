@@ -1,0 +1,36 @@
+
+
+
+
+app:
+  keycloak:
+    base-url: http://localhost:8080/realms/java_integration
+  jwt:
+    auth:
+      converter:
+        resource-id: java_integration_client
+        principal-attribute: preferred_username
+
+spring:
+  application:
+    name: keycloak-integration
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            scope: openid
+            authorization-grant-type: authorization_code
+            client-id: java_integration_client
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/java_integration
+            user-name-attribute: preferred_username
+        resourceserver:
+          jwt:
+            issuer-uri: http://localhost:8080/realms/java_integration
+            jwk-set-uri: http://localhost:8080/realms/java_integration/protocol/openid-connect/certs
+server:
+  port: 8082
+  servlet:
+    context-path: /keycloak

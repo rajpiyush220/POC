@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @Builder
-public class OrganizationSubClaimConverter implements
+public class CustomClaimConverter implements
         Converter<Map<String, Object>, Map<String, Object>> {
 
     private final MappedJwtClaimSetConverter delegate =
@@ -16,10 +16,11 @@ public class OrganizationSubClaimConverter implements
 
     public Map<String, Object> convert(Map<String, Object> claims) {
         Map<String, Object> convertedClaims = this.delegate.convert(claims);
-        String organization = convertedClaims.get("organization") != null ?
-                (String) convertedClaims.get("organization") : "unknown";
+        String zipcode = convertedClaims.get("zipcode") != null ? convertedClaims.get("zipcode").toString() : "N/A";
+        String dob = convertedClaims.get("dob") != null ? convertedClaims.get("dob").toString() : "N/A";
 
-        convertedClaims.put("organization", organization.toUpperCase());
+        convertedClaims.put("zipcode", zipcode);
+        convertedClaims.put("dob",dob);
 
         return convertedClaims;
     }
