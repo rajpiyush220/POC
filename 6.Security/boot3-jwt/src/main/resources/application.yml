@@ -1,0 +1,27 @@
+
+spring:
+  application:
+    name: boot3-jwt
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${spring.datasource.db.user:root}
+    url: jdbc:mysql://${spring.datasource.db.host:localhost}:3306/${spring.datasource.default_schema:jwt_auth}
+    password: ${spring.datasource.db.password:Pikr@1991}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+springdoc:
+  api-docs:
+    path: /api-docs
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+#    org.springframework.boot.autoconfigure: DEBUG
+jwt:
+  issuer: Jwt-Auth-App
